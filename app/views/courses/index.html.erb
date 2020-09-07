@@ -1,0 +1,28 @@
+<% provide(:title, 'Courses') %>
+
+<h2>BTGA Course List</h2>
+<div class="table-container">
+  <div class="table-info">
+    <%= link_to 'New Course', new_course_path %>
+  </div>
+  <table class="index-table">
+    <thead>
+      <tr>
+        <th>Course</th>
+        <th>Par</th>
+        <th>Yardage</th>
+        <th>Difficulty</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @courses.all.each do |course| %>
+        <tr>
+          <td><%= course.name %></td>
+          <td><%= course.par %></td>
+          <td><%= course.yardage %></td>
+          <td><%= course.difficulty %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
