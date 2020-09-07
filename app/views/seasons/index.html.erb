@@ -1,1 +1,14 @@
-<h1>Hi there!</h1>
+<table>
+  <thead>
+    <tr>
+      <th>Season</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <% @seasons.all.each do |season| %>
+        <td><%= season.year %></td>
+      <% end %>
+    </tr>
+  </tbody>
+</table>

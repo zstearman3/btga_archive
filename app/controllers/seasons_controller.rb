@@ -1,5 +1,5 @@
 class SeasonsController < ApplicationController
-    def index
-        
-    end
+  def index
+    @seasons = Season.all
+  end
 end
