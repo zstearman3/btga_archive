@@ -2,6 +2,10 @@
 $btga-blue: #3c3b6e;
 $btga-red: #b22234;
 
+h1, h2, h3, h4, h5, p, td, th, a {
+  font-family: 'Roboto', sans-serif;
+}
+
 body{
   margin: 0px;
   padding: 0px;
@@ -26,6 +30,7 @@ body{
     }
   }
   .navbar-right{
+    display: none;
     float: right;
     list-style-type: none;
     padding-right: 10%;
@@ -33,6 +38,28 @@ body{
     a{
       color: white;
       text-decoration: none;
+    }
+  }
+  .navbar-toggle{
+    display: block;
+    float: right;
+    width: 40px;
+    border: 2px solid white;
+    border-radius: 5px;
+    margin: 15px 20px 0px 0px;
+    .icon-bar{
+      border-bottom: 3px solid white;
+      display: block;
+      width: 30px;
+      margin: 5px;
+    }
+  }
+  @media screen and (min-width: 760px) {
+    .navbar-right{
+      display: block;
+    }
+    .navbar-toggle{
+      display: none;
     }
   }
 }
