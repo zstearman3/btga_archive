@@ -1,15 +1,28 @@
 <% provide(:title, 'History') %>
-<table>
-  <thead>
-    <tr>
-      <th>Season</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <% @seasons.all.each do |season| %>
-        <td><%= season.year %></td>
-      <% end %>
-    </tr>
-  </tbody>
-</table>
+
+<div class="table-container">
+  <div class="table-info">
+    <h3>BTGA History</h3>
+    <%= link_to 'New Season', '#' %>
+  </div>
+  <div class="table-wrapper">
+    <table class="index-table">
+      <thead>
+        <tr>
+          <th>Season</th>
+          <th>Events</th>
+          <th>Champion</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @seasons.all.each do |season| %>
+          <tr>
+            <td><%= season.year %></td>
+            <td></td>
+            <td></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
