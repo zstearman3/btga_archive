@@ -1,8 +1,8 @@
-// Main Styles
+/**************** Main *******************/
 $btga-blue: #3c3b6e;
 $btga-red: #b22234;
 
-h1, h2, h3, h4, h5, p, td, th, a {
+h1, h2, h3, h4, h5, p, td, th, a, label {
   font-family: 'Roboto', sans-serif;
 }
 
@@ -18,8 +18,9 @@ body{
   
 }
 
-// Components
+/************* Components *****************/
 
+// Site Header
 #site-header{
   background-color: $btga-blue;
   min-height: 60px;
@@ -93,6 +94,7 @@ body{
   }
 }
 
+// Index Tables
 .table-container{
   max-width: 1000px;
   width: 100%;
@@ -140,5 +142,43 @@ body{
         padding: 1px;
       }
     }
+  }
+}
+
+// Forms
+.form-container{
+  max-width: 800px;
+  margin: auto;
+  h1{
+    text-align: center;
+  }
+  .field{
+    padding-bottom: 10px;
+    label{
+      color: $btga-red;
+      font-size: 1.2em;
+    }
+    .form-field{
+      width: 100%;
+      font-size: 1em;
+      color: $btga-blue;
+      padding: 5px 0px 5px 5px;
+      box-sizing:border-box;
+      -moz-box-sizing:border-box;
+    }
+  }
+}
+
+//Buttons
+.button{
+  font-size: 1em;
+  color: white;
+  background-color: $btga-blue;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  transition: transform 0.25s;
+  &:hover{
+    transform: translate(1px, -1px);
   }
 }

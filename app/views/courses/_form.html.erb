@@ -28,7 +28,7 @@
   
   <div class="field">
     <%= form.label :difficulty %>
-    <%= form.select :difficulty, Course.difficulty_options, class: 'form-field', id: :course_difficulty %>
+    <%= form.select :difficulty, Course.difficulty_options, {}, {class: 'form-field', id: :course_difficulty} %>
   </div>
   
   <div class="field">
