@@ -1,9 +1,9 @@
 document.addEventListener("turbolinks:load", () => {
-  const btn = document.getElementById("mobile-navbar");
+  const btn = document.getElementById("mobile-navbar-toggle");
   btn.addEventListener("click", handleClick);
-  console.log("JS loaded");
 })
 
 function handleClick() {
-  alert("I'm clicked!");
+  const mobileNav = document.getElementById("mobile-navbar");
+  mobileNav.classList.contains('visible') ? mobileNav.classList.remove('visible') : mobileNav.classList.add('visible');
 }

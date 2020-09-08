@@ -18,7 +18,11 @@ body{
 
 #site-header{
   background-color: $btga-blue;
-  height: 60px;
+  min-height: 60px;
+  .navbar{
+    display: block;
+    overflow: auto;
+  }
   #header-logo{
     float: left;
     width: 100px;
@@ -46,7 +50,7 @@ body{
     width: 40px;
     border: 2px solid white;
     border-radius: 5px;
-    margin: 15px 20px 0px 0px;
+    margin: 15px 40px 0px 0px;
     .icon-bar{
       border-bottom: 3px solid white;
       display: block;
@@ -54,11 +58,32 @@ body{
       margin: 5px;
     }
   }
+  #mobile-navbar{
+    background-color: $btga-blue;
+    margin-top: 5px;
+    list-style-type: none;
+    display: none;
+    overflow: auto;
+    li{
+      text-align: center;
+      a{
+        color: white;
+        text-decoration: none;
+        font-size: 1.2em;
+      }
+    }
+  }
+  .visible{
+    display: block !important;
+  }
   @media screen and (min-width: 760px) {
     .navbar-right{
       display: block;
     }
     .navbar-toggle{
+      display: none;
+    }
+    .mobile-navbar{
       display: none;
     }
   }
