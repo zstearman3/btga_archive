@@ -10,8 +10,12 @@ body{
   margin: 0px;
   padding: 0px;
   .page-body{
-    margin: 0px 50px;
+    margin: 0px 10px;
+    @media screen and (min-width: 760px) {
+      margin: 0px 50px;
+    }
   }
+  
 }
 
 // Components
@@ -111,6 +115,30 @@ body{
       padding-right: 10px;
       color: white;
       text-decoration: none;
+    }
+  }
+  .table-wrapper{
+    overflow-x: scroll;
+    .index-table{
+      table-layout: auto;
+      width: 100%;
+      margin-bottom: 2px;
+      border-collapse: collapse;
+      tr:nth-child(even) {
+        background-color: #f2f2f2;
+      }
+      tr:hover {
+        background-color: #dedede;
+      }
+      th{
+        text-align: left;
+        background-color: $btga-blue;
+        color: white;
+      }
+      th, td{
+        border: 1px solid #ddd;
+        padding: 1px;
+      }
     }
   }
 }

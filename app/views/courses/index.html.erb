@@ -5,24 +5,26 @@
     <h3>BTGA Course List</h3>
     <%= link_to 'New Course', new_course_path %>
   </div>
-  <table class="index-table">
-    <thead>
-      <tr>
-        <th>Course</th>
-        <th>Par</th>
-        <th>Yardage</th>
-        <th>Difficulty</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @courses.all.each do |course| %>
+  <div class="table-wrapper">
+    <table class="index-table">
+      <thead>
         <tr>
-          <td><%= course.name %></td>
-          <td><%= course.par %></td>
-          <td><%= course.yardage %></td>
-          <td><%= course.difficulty %></td>
+          <th>Course</th>
+          <th>Par</th>
+          <th>Yardage</th>
+          <th>Difficulty</th>
         </tr>
-      <% end %>
-    </tbody>
-  </table>
+      </thead>
+      <tbody>
+        <% @courses.all.each do |course| %>
+          <tr>
+            <td><%= course.name %></td>
+            <td><%= course.par %></td>
+            <td><%= course.yardage %></td>
+            <td><%= course.difficulty %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
 </div>
