@@ -2,7 +2,7 @@ class GolfersController < ApplicationController
   before_action :select_golfer, only: [:show, :edit, :update, :destroy]
   
   def index
-    @golfers = Golfer.all
+    @golfers = Golfer.all.order(:handicap)
   end
   
   def show; end
