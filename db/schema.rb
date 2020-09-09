@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_09_173616) do
+ActiveRecord::Schema.define(version: 2020_09_09_200925) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -52,15 +52,23 @@ ActiveRecord::Schema.define(version: 2020_09_09_173616) do
     t.index ["name"], name: "index_societies_on_name"
   end
 
+  create_table "tournament_levels", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "tournaments", force: :cascade do |t|
     t.string "name"
     t.bigint "society_id"
     t.bigint "course_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "tournament_level_id"
     t.index ["course_id"], name: "index_tournaments_on_course_id"
     t.index ["name"], name: "index_tournaments_on_name", unique: true
     t.index ["society_id"], name: "index_tournaments_on_society_id"
+    t.index ["tournament_level_id"], name: "index_tournaments_on_tournament_level_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -71,4 +79,5 @@ ActiveRecord::Schema.define(version: 2020_09_09_173616) do
 
   add_foreign_key "golfers", "societies"
   add_foreign_key "seasons", "societies"
+  add_foreign_key "tournaments", "tournament_levels"
 end

@@ -21,6 +21,11 @@
     <%= form.collection_select :course_id, Course.all.order(:name), :id, :name, {include_blank: 'Rotates'}, {class: 'form-field', id: :tournament_course_id }%>
   </div>
   
+  <div class="field">
+    <%= form.label :type %>
+    <%= form.collection_select :tournament_level_id, TournamentLevel.all, :id, :name, {}, {class: 'form-field', id: :tournament_tournament_level_id }%>
+  </div>
+  
   <div class="submit">
     <%= form.submit yield(:button_text), class: 'button submit-button' %>
   </div>

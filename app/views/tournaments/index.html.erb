@@ -11,6 +11,8 @@
         <tr>
           <th>Tournament</th>
           <th>Course</th>
+          <th>Type</th>
+          <th>Actions</th>
         </tr>
       </thead>
       <tbody>
@@ -18,6 +20,9 @@
           <tr>
             <td><%= tournament.name %></td>
             <td><%= tournament.home_course %></td>
+            <td><%= tournament.level %></td>
+            <td><%= link_to 'Edit', edit_tournament_path(tournament) %> | 
+                <%= link_to 'Delete', tournament, method: :delete, data: { confirm: 'Are you sure?' } %>
           </tr>
         <% end %>
       </tbody>

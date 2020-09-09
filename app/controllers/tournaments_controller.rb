@@ -1,7 +1,8 @@
 class TournamentsController < ApplicationController
+  before_action :select_tournament, only: [:show, :edit, :update, :destroy]
   
   def index
-    @tournaments = Tournament.all.order(:name)
+    @tournaments = Tournament.all.includes(:tournament_level).order(:name)
   end
   
   def show; end
@@ -24,7 +25,12 @@ class TournamentsController < ApplicationController
   def edit; end
     
   def update
-  
+    if @tournament.update(tournament_params)
+      flash['success'] = "Tournament updated!"
+      redirect_to tournaments_path
+    else
+      render 'edit'
+    end
   end
   
   def destroy
@@ -33,11 +39,16 @@ class TournamentsController < ApplicationController
   
   private
     def select_tournament
-      
+      begin
+        @tournament = Tournament.find(params[:id])
+      rescue StandardError => e
+        redirect_to tournaments_path
+        flash[:danger] = e.message
+      end
     end
     
     def tournament_params
-      params.require(:tournament).permit(:name, :society_id, :course_id)
+      params.require(:tournament).permit(:name, :society_id, :course_id, :tournament_level_id)
     end
     
 end
