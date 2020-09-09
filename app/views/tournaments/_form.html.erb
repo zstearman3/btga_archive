@@ -1,0 +1,27 @@
+<%= form_for(@tournament) do |form| %>
+  
+  <% if @tournament.errors.any? %>
+    <div id="error-explanations">
+      <%= pluralize(@tournament.errors.count, "error") %> prohibited this tournament from being saved:
+      <ul>
+        <% @tournament.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+    
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name, class: 'form-field', id: :tournament_name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :course %>
+    <%= form.collection_select :course_id, Course.all.order(:name), :id, :name, {include_blank: 'Rotates'}, {class: 'form-field', id: :tournament_course_id }%>
+  </div>
+  
+  <div class="submit">
+    <%= form.submit yield(:button_text), class: 'button submit-button' %>
+  </div>
+<% end %>

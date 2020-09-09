@@ -1,0 +1,26 @@
+<% provide(:title, 'Tournaments') %>
+
+<div class="table-container">
+  <div class="table-info">
+    <h3>BTGA Tournaments</h3>
+    <%= link_to 'New Tournament', new_tournament_path %>
+  </div>
+  <div class="table-wrapper">
+    <table class="index-table">
+      <thead>
+        <tr>
+          <th>Tournament</th>
+          <th>Course</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @tournaments.all.each do |tournament| %>
+          <tr>
+            <td><%= tournament.name %></td>
+            <td><%= tournament.home_course %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

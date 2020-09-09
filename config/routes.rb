@@ -3,5 +3,6 @@ Rails.application.routes.draw do
   resources :seasons
   resources :courses
   resources :golfers
+  resources :tournaments
   get 'roster' => 'golfers#index'
 end 

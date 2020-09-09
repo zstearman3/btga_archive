@@ -96,9 +96,12 @@ body{
     list-style-type: none;
     display: none;
     overflow: auto;
+    padding: 0px;
     li{
       text-align: center;
       a{
+        display: block;
+        padding: 5px 0px;
         color: white;
         text-decoration: none;
         font-size: 1.2em;
