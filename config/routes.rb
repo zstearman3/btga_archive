@@ -2,4 +2,6 @@ Rails.application.routes.draw do
   root 'seasons#index'
   resources :seasons
   resources :courses
-end
+  resources :golfers
+  get 'roster' => 'golfers#index'
+end 

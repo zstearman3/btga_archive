@@ -1,0 +1,32 @@
+<% provide(:title, 'Roster') %>
+
+<div class="table-container">
+  <div class="table-info">
+    <h3>BTGA Roster</h3>
+    <%= link_to 'New Golfer', new_golfer_path %>
+  </div>
+  <div class="table-wrapper">
+    <table class="index-table">
+      <thead>
+        <tr>
+          <th>Golfer</th>
+          <th>Gamertag</th>
+          <th>Handcicap</th>
+          <th>Victories</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @golfers.all.each do |golfer| %>
+          <tr>
+            <td><%= golfer.name %></td>
+            <td><%= golfer.gamertag %></td>
+            <td><%= golfer.handicap %></td>
+            <td><%= golfer.victories %></td>
+            <td>Edit | Delete</td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

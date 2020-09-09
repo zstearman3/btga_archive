@@ -33,7 +33,7 @@
   
   <div class="field">
     <%= form.label :star_rating %>
-    <%= form.number_field :star_rating, class: 'form-field', id: :course_star_rating %>
+    <%= form.number_field :star_rating, min: 0, max: 10, step: 0.1, class: 'form-field', id: :course_star_rating %>
   </div>
   
   <div class="submit">

@@ -1,0 +1,38 @@
+<%= form_for(@golfer) do |form| %>
+
+  <% if @golfer.errors.any? %>
+    <div id="error-explanations">
+      <%= pluralize(@golfer.errors.count, "error") %> prohibited this golfer from being saved:
+      <ul>
+        <% @golfer.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+    
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name, class: 'form-field', id: :golfer_name %>
+  </div>
+  
+  <div class="field">
+    <%= form.label :gamertag %>
+    <%= form.text_field :gamertag, class: 'form-field', id: :golfer_gamertag %>
+  </div>
+  
+  <div class="field">
+    <%= form.label :handicap %>
+    <%= form.number_field :handicap, min: -100, max: 100, step: 0.1, class: 'form-field', id: :golfer_handicap %>
+  </div>
+  
+  <div class="field">
+    <%= form.label :victories %>
+    <%= form.number_field :victories, min: 0, max: 1000, class: 'form-field', id: :golfer_victories %>
+  </div>
+  
+  <div class="submit">
+    <%= form.submit yield(:button_text), class: 'button submit-button' %>
+  </div>
+  
+<% end %>
