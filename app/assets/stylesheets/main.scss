@@ -1,8 +1,10 @@
 /**************** Main *******************/
 $btga-blue: #3c3b6e;
 $btga-red: #b22234;
+$danger-red: #ffcccb;
+$success-blue: #add8e6;
 
-h1, h2, h3, h4, h5, p, td, th, a, label {
+h1, h2, h3, h4, h5, p, td, th, a, label .alert{
   font-family: 'Roboto', sans-serif;
 }
 
@@ -15,7 +17,28 @@ body{
       margin: 0px 50px;
     }
   }
-  
+}
+
+.alert{
+  width: 80%;
+  margin: auto;
+  border-radius: 5px;
+  border: 1px solid black;
+  text-align: center;
+  font-size: 1.2em;
+  padding: 10px;
+}
+
+.alert-danger{
+  color: $btga-red;
+  border-color: $btga-red;
+  background-color: $danger-red;
+}
+
+.alert-success{
+  color: $btga-blue;
+  border-color: $btga-blue;
+  background-color: $success-blue;
 }
 
 /************* Components *****************/

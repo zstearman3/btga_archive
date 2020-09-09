@@ -21,9 +21,11 @@
           <tr>
             <td><%= golfer.name %></td>
             <td><%= golfer.gamertag %></td>
-            <td><%= golfer.handicap %></td>
+            <td><%= golfer.formatted_handicap %></td>
             <td><%= golfer.victories %></td>
-            <td>Edit | Delete</td>
+            <td><%= link_to 'Edit', edit_golfer_path(golfer) %> | 
+                <%= link_to 'Delete', golfer, method: :delete, data: { confirm: 'Are you sure?'} %>
+            </td>
           </tr>
         <% end %>
       </tbody>
