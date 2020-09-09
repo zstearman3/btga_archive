@@ -15,7 +15,7 @@ class GolfersController < ApplicationController
     @golfer.society = Society.last
     if @golfer.save
       flash[:success] = "Golfer added!"
-      redirect_to golfers_path
+      redirect_to roster_path
     else
       render 'new'
     end
