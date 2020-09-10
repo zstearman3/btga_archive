@@ -15,7 +15,7 @@ class SeasonTournamentsController < ApplicationController
     @event.season_order = SeasonTournament.where(season_id: @event.season_id).where("start_date < ?", @event.start_date).count + 1
     if @event.save
       flash[:success] = "Event added!"
-      redirect_to schedule_path(@event.season_id)
+      redirect_to schedule_path(params[:season])
     else
       render 'new'
     end
@@ -32,7 +32,7 @@ class SeasonTournamentsController < ApplicationController
   end
   
   def schedule
-    @season = Season.includes(season_tournaments: :tournament).friendly.find(params[:id])
+    @season = Season.includes(season_tournaments: [:tournament, :course]).friendly.find(params[:id])
     @events = @season.season_tournaments.order(:season_order)
   end
   

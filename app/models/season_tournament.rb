@@ -10,4 +10,8 @@ class SeasonTournament < ApplicationRecord
   def tournament_name
     tournament.name
   end
+  
+  def course_name
+    course.name
+  end
 end
