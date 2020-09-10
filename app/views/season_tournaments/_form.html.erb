@@ -1,0 +1,50 @@
+<%= form_for(@event) do |form| %>
+  
+  <% if @event.errors.any? %>
+    <div id="error-explanations">
+      <%= pluralize(@event.errors.count, "error") %> prohibited this event from being saved:
+      <ul>
+        <% @event.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  
+  <div class="field">
+    <%= form.label :season %>
+    <%= form.collection_select :season_id, Season.where(society: Society.last).order(:year), 
+        :id, :year, {selected: params[:season]}, {class: 'form-field', id: :event_season_id }
+    %>
+  </div>
+  
+  <div class="field">
+    <%= form.label :tournament %>
+    <%= form.collection_select :tournament_id, Tournament.all.order(:name), :id, :name, {}, {class: 'form-field', id: :event_tournament_id }%>
+  </div>
+  
+  <div class="field">
+    <%= form.label :course %>
+    <%= form.collection_select :course_id, Course.all.order(:name), :id, :name, {}, {class: 'form-field', id: :event_course_id }%>
+  </div>
+  
+  <div class="field">
+    <%= form.label :rounds %>
+    <%= form.number_field :rounds, min: 1, max: 4, class: 'form-field', id: :event_rounds %>
+  </div>
+  
+  <div class="field">
+    <%= form.label :start_date %>
+    <%= form.date_field :start_date, class: 'form-field', id: :event_start_date %>
+  </div>
+  
+  <div class="field">
+    <%= form.label :end_date %>
+    <%= form.date_field :end_date, class: 'form-field', id: :event_end_date %>
+  </div>
+  
+  <div class="submit">
+    <%= form.submit yield(:button_text), class: 'button submit-button' %>
+  </div>
+  
+<% end %>

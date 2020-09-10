@@ -1,0 +1,32 @@
+<% provide(:title, 'Schedule') %>
+
+<div class="table-container">
+  <div class="table-info">
+    <h3><%= @season.year %> Schedule</h3>
+    <%= link_to 'New Tournament', new_season_tournament_path(:season => @season.year) %>
+  </div>
+  <div class="table-wrapper">
+    <table class="index-table">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Event</th>
+          <th>Rounds</th>
+          <th>Champion</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @events.all.each do |event| %>
+          <tr>
+            <td><%= event.start_date.strftime('%m/%d/%Y') %></td>
+            <td><%= event.tournament_name %></td>
+            <td><%= event.rounds %></td>
+            <td></td>
+            <td></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
