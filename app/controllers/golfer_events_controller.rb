@@ -17,6 +17,7 @@ class GolferEventsController < ApplicationController
     @golfer_event.golfer_season = @golfer_season
     @golfer_event.tournament = @season_tournament.tournament
     @golfer_event.course = @season_tournament.course
+    @golfer_event.score = params[:golfer_event][:round_1_score].to_i + params[:golfer_event][:round_2_score].to_i
     @golfer_event.score_to_par = @golfer_event.calculate_score_to_par
     if @golfer_event.save
       @golfer_season.society = @golfer_event.society

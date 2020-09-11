@@ -21,10 +21,14 @@
     <%= form.collection_select :golfer_id, Golfer.all.order(:name), :id, :name, {}, {class: 'form-field', id: :golfer_event_golfer_id} %>
   </div>
   
-  <div class="field">
-    <%= form.label :score %>
-    <%= form.number_field :score, min: 18, max: 150, class: 'form-field', id: :golfer_event_score %>
-  </div>
+  <% for i in (1..@season_tournament.rounds) do %>
+    
+    <div class="field">
+      <%= form.label "Round #{i}" %>
+      <%= form.number_field :"round_#{i}_score", min: 18, max: 150, class: 'form-field', id: :"golfer_round_#{i}_score" %>
+    </div>
+    
+  <% end %>
   
   <div class="field">
     <%= form.label :completed %>

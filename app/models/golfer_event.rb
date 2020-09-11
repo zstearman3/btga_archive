@@ -1,4 +1,6 @@
 class GolferEvent < ApplicationRecord
+  attr_accessor :round_1_score, :round_2_score, :round_3_score, :round_4_score
+  
   belongs_to :society
   belongs_to :golfer
   belongs_to :golfer_season
