@@ -1,0 +1,38 @@
+<% provide(:title, @event.tournament_name) %>
+
+<div class="table-container">
+  <div class="leaderboard-info">
+    <div class="event-info">
+      <h3><%= @event.tournament_name %></h3>
+      <p><%= "#{@event.course_name} • #{@event.start_date.strftime("%m/%d/%Y")}" %></p>
+    </div>
+    <%= link_to 'New Golfer', new_season_tournament_golfer_event_path(@event) %>
+  </div>
+  <div class="table-wrapper">
+    <table class="leaderboard">
+      <thead>
+        <tr>
+          <th>POS</th>
+          <th>Golfer</th>
+          <th>Total</th>
+          <% for i in 1..@event.rounds %>
+            <th><%= "R#{i}" %></th>
+          <% end %>
+          <th>Strokes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @golfer_events.each do |event| %>
+          <tr>
+            <td>1</td>
+            <td><%= event.golfer.name %></td>
+            <td><%= event.score_to_par %></td>
+            <td></td>
+            <td></td>
+            <td><%= event.score %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -1,9 +1,13 @@
 class SeasonTournamentsController < ApplicationController
+  before_action :select_event, only: [:show, :edit, :update, :destroy]
+  
   def index
     @events = SeasonTournament.all
   end
   
-  def show; end
+  def show
+    @golfer_events = @event.golfer_events.includes(:golfer).order(:finish)  
+  end
     
   def new
     @event = SeasonTournament.new
@@ -32,15 +36,15 @@ class SeasonTournamentsController < ApplicationController
   end
   
   def schedule
-    @season = Season.includes(season_tournaments: [:tournament, :course]).friendly.find(params[:id])
-    @events = @season.season_tournaments.order(:season_order)
+    @season = Season.includes(season_tournaments: [:tournament, :course]).find(params[:id])
+    @events = @season.season_tournaments
   end
   
   private
   
     def select_event
       begin
-        @event = SeasonTournament.find(params[:id])
+        @event = SeasonTournament.includes(:tournament).find(params[:id])
       rescue StandardError => e
         redirect_to schedule_path(Season.current_year)
         flash[:danger] = e.message

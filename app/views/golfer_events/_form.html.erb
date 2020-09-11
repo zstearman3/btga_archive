@@ -1,0 +1,38 @@
+<%= form_for([@season_tournament, @golfer_event]) do |form| %>
+  
+  <% if @golfer_event.errors.any? %>
+    <div id="error-explanations">
+      <%= pluralize(@golfer_event.errors.count, "error") %> prohibited this event from being saved:
+      <ul>
+        <% @golfer_event.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  
+  <div class="field">
+    <%= form.label "Tournament" %>
+    <%= form.text_field :tournament_name, readonly: true, class: 'form-field', value: @season_tournament.tournament_name %>
+  </div>
+  
+  <div class="field">
+    <%= form.label :golfer %>
+    <%= form.collection_select :golfer_id, Golfer.all.order(:name), :id, :name, {}, {class: 'form-field', id: :golfer_event_golfer_id} %>
+  </div>
+  
+  <div class="field">
+    <%= form.label :score %>
+    <%= form.number_field :score, min: 18, max: 150, class: 'form-field', id: :golfer_event_score %>
+  </div>
+  
+  <div class="field">
+    <%= form.label :completed %>
+    <%= form.check_box :completed, class: 'form-check', id: :golfer_event_completed %>
+  </div>
+  
+  <div class="submit">
+    <%= form.submit yield(:button_text), class: 'button submit-button' %>
+  </div>
+  
+<% end %>
