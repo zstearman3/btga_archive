@@ -2,6 +2,7 @@ class Golfer < ApplicationRecord
   belongs_to :society
   has_many :golfer_seasons, dependent: :destroy
   has_many :golfer_events, dependent: :destroy
+  has_many :golfer_rounds, dependent: :destroy
   validates :name, presence: true
   
   def formatted_handicap

@@ -3,7 +3,8 @@ class Tournament < ApplicationRecord
   belongs_to :tournament_level
   belongs_to :course, optional: true
   has_many :season_tournaments, dependent: :destroy
-  has_many :golfer_events, dependent: :destroy
+  has_many :golfer_events
+  has_many :golfer_rounds
   validates :name, uniqueness: true
   
   def home_course

@@ -17,7 +17,15 @@ class GolferEventsController < ApplicationController
     @golfer_event.golfer_season = @golfer_season
     @golfer_event.tournament = @season_tournament.tournament
     @golfer_event.course = @season_tournament.course
-    @golfer_event.score = params[:golfer_event][:round_1_score].to_i + params[:golfer_event][:round_2_score].to_i
+    for i in 1..@season_tournament.rounds
+      new_round = GolferRound.new(golfer_event: @golfer_event)
+      new_round.init_from_event(i, params[:golfer_event][:"round_#{i}_score"].to_i)
+      if !new_round.save
+        raise "Round #{i} was not saved: #{new_round.inspect}"
+      end
+    end
+    @golfer_event.score = 0
+    @golfer_event.golfer_rounds.each { |round| @golfer_event.score += round.score }
     @golfer_event.score_to_par = @golfer_event.calculate_score_to_par
     if @golfer_event.save
       @golfer_season.society = @golfer_event.society

@@ -27,8 +27,9 @@
             <td>1</td>
             <td><%= event.golfer.name %></td>
             <td><%= event.score_to_par %></td>
-            <td></td>
-            <td></td>
+            <% event.golfer_rounds.order(:round_order).each do |round| %>
+            <td><%= round.score %></td>
+            <% end %>
             <td><%= event.score %></td>
           </tr>
         <% end %>
