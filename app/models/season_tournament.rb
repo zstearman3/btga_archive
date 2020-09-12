@@ -16,4 +16,12 @@ class SeasonTournament < ApplicationRecord
   def course_name
     course.name
   end
+  
+  def finalize_event
+    golfer_events.each do |event|
+      event.calculate_finish
+      event.save
+    end
+    self.finalized = true
+  end
 end

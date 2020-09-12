@@ -9,4 +9,5 @@ Rails.application.routes.draw do
   end
   get 'schedule/:id' => 'season_tournaments#schedule',  as: :schedule
   get 'roster' => 'golfers#index'
+  get 'finalize/:id' => 'season_tournaments#finalize', as: :finalize_event
 end 

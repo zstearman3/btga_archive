@@ -19,6 +19,9 @@
             <th><%= "R#{i}" %></th>
           <% end %>
           <th>Strokes</th>
+          <% if !@event.finalized %>
+            <th>Actions</th>
+          <% end %>
         </tr>
       </thead>
       <tbody>
@@ -31,9 +34,15 @@
             <td><%= round.score %></td>
             <% end %>
             <td><%= event.score %></td>
+            <% if !@event.finalized %>
+              <td>Edit | Delete</td>
+            <% end %>
           </tr>
         <% end %>
       </tbody>
     </table>
   </div>
+  <% if !@event.finalized %>
+    <%= link_to "Finalize Event", finalize_event_path(@event) %>
+  <% end %>
 </div>

@@ -1,5 +1,5 @@
 class SeasonTournamentsController < ApplicationController
-  before_action :select_event, only: [:show, :edit, :update, :destroy]
+  before_action :select_event, only: [:show, :edit, :update, :destroy, :finalize]
   
   def index
     @events = SeasonTournament.all
@@ -38,6 +38,17 @@ class SeasonTournamentsController < ApplicationController
   def schedule
     @season = Season.includes(season_tournaments: [:tournament, :course]).find(params[:id])
     @events = @season.season_tournaments
+  end
+  
+  def finalize
+    @event.finalize_event
+    if @event.save
+      flash[:success] = "Event finalized!"
+      redirect_to @event
+    else
+      flash[:warning] = "Event not finalized!"
+      redirect_to @event
+    end
   end
   
   private
