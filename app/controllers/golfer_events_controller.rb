@@ -28,6 +28,10 @@ class GolferEventsController < ApplicationController
     @golfer_event.golfer_rounds.each { |round| @golfer_event.score += round.score }
     @golfer_event.score_to_par = @golfer_event.calculate_score_to_par
     if @golfer_event.save
+      @season_tournament.golfer_events.each do |event|
+        event.finish = event.calculate_finish
+        event.save
+      end
       @golfer_season.society = @golfer_event.society
       @golfer_season.save
       flash[:success] = "Tournament logged!"

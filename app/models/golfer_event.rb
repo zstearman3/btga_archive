@@ -12,4 +12,8 @@ class GolferEvent < ApplicationRecord
   def calculate_score_to_par
     score - (season_tournament.rounds * course.par)
   end
+  
+  def calculate_finish
+    GolferEvent.where(season_tournament: season_tournament).where("score < ?", score).count + 1
+  end
 end
