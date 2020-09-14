@@ -51,4 +51,8 @@ class SeasonTournament < ApplicationRecord
     self.finalized = false
     self.save
   end
+  
+  def select_default_course
+    @course = Tournament.find(params[:id]).course
+  end
 end

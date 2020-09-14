@@ -11,4 +11,5 @@ Rails.application.routes.draw do
   get 'roster' => 'golfers#index'
   get 'finalize/:id' => 'season_tournaments#finalize', as: :finalize_event
   get 'unfinalize/:id' => 'season_tournaments#unfinalize', as: :unfinalize_event
+  get 'select_default_course' => 'season_tournaments#select_default_course'
 end 
