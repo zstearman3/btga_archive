@@ -1,4 +1,6 @@
 class GolferEventsController < ApplicationController
+  before_action :select_golfer_event, only: [:show, :edit, :update, :destroy]
+  
   def index; end
     
   def show; end
@@ -41,8 +43,23 @@ class GolferEventsController < ApplicationController
     end
   end
   
+  def destroy
+    @golfer_event.destroy ? flash[:success] = "Event deleted!" : flash[:danger] = "There was a problem deleting the event!"
+    redirect_to @season_tournament
+  end
+  
   private
   
+    def select_golfer_event
+      begin
+        @season_tournament = SeasonTournament.find(params[:season_tournament_id])
+        @golfer_event = GolferEvent.find(params[:id])
+      rescue StandardError => e
+        redirect_to season_tournament_path(params[:season_tournament_id])
+        flash[:danger] = e.message
+      end
+    end
+    
     def event_params
       params.require(:golfer_event).permit(:completed, :finish, :score, :score_to_par,
                      :points, :golfer_id, :golfer_season_id, :tournament_id, :society_id)

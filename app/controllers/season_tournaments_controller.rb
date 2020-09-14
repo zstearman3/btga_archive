@@ -28,11 +28,17 @@ class SeasonTournamentsController < ApplicationController
   def edit; end
     
   def update
-  
+    if @event.update(event_params)
+      flash['success'] = "Event updated!"
+      redirect_to schedule(@event.season.year)
+    else
+      render 'edit'
+    end
   end
   
   def destroy
-  
+    @event.destroy ? flash[:success] = "Event deleted!" : flash[:danger] = "There was a problem deleting the event!"
+    redirect_to schedule(@event.season.year)
   end
   
   def schedule

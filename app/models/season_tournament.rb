@@ -47,7 +47,7 @@ class SeasonTournament < ApplicationRecord
   end
   
   def unfinalize_event
-    event_winners.delete_all
+    event_winners.destroy_all
     self.finalized = false
     self.save
   end

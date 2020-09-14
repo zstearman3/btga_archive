@@ -29,7 +29,7 @@
           <tr>
             <td><%= event.finish %></td>
             <td><%= event.golfer.name %></td>
-            <td><%= event.score_to_par %></td>
+            <td><%= event.display_score_to_par %></td>
             <% event.golfer_rounds.order(:round_order).each do |round| %>
             <td><%= round.score %></td>
             <% end %>
@@ -38,16 +38,20 @@
             <% end %>
             <td><%= event.score %></td>
             <% if !@event.finalized %>
-              <td>Edit | Delete</td>
+              <td>Edit | 
+                  <%= link_to 'Delete', [@event, event], method: :delete, data: {confirm: 'Are you sure?' } %>
+              </td>
             <% end %>
           </tr>
         <% end %>
       </tbody>
     </table>
   </div>
+</div>
+<div class="button-container">
   <% if !@event.finalized %>
-    <%= link_to "Finalize Event", finalize_event_path(@event) %>
+    <%= link_to "Finalize Event", finalize_event_path(@event), class: "button finalize-button" %>
   <% else %>
-    <%= link_to "Unfinalize Event", unfinalize_event_path(@event) %>
-  <% end %>
+    <%= link_to "Unfinalize Event", unfinalize_event_path(@event), class: "button finalize-button" %>
+  <% end %> 
 </div>

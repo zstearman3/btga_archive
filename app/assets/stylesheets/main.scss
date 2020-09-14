@@ -131,6 +131,10 @@ body{
   margin: 10px auto;
   border: 1px solid $btga-red;
   border-radius: 5px;
+  a{
+    color: $btga-red;
+    text-decoration: none;
+  }
   .table-info{
     width: 100%;
     display: flex;
@@ -262,4 +266,13 @@ body{
   &:hover{
     transform: translate(1px, -1px);
   }
+}
+.finalize-button{
+  display: inline-block;
+  text-decoration: none;
+  color: white;
+}
+.button-container{
+  max-width: 1000px;
+  margin: 0px auto;
 }

@@ -25,7 +25,8 @@
             <td><%= event.course_name %></td>
             <td><%= event.rounds %></td>
             <td><%= event.display_winners %></td>
-            <td>edit | delete</td>
+            <td><%= link_to 'Edit', edit_season_tournament_path(event) %> | 
+                <%= link_to 'Delete', event, method: :delete, data: { confirm: 'Are you sure?' } %></td>
           </tr>
         <% end %>
       </tbody>
