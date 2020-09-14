@@ -6,7 +6,9 @@
       <h3><%= @event.tournament_name %></h3>
       <p><%= "#{@event.course_name} • #{@event.start_date.strftime("%m/%d/%Y")}" %></p>
     </div>
-    <%= link_to 'New Golfer', new_season_tournament_golfer_event_path(@event) %>
+    <% if !@event.finalized %>
+      <%= link_to 'New Golfer', new_season_tournament_golfer_event_path(@event) %>
+    <% end %>
   </div>
   <div class="table-wrapper">
     <table class="leaderboard">
@@ -38,7 +40,7 @@
             <% end %>
             <td><%= event.score %></td>
             <% if !@event.finalized %>
-              <td>Edit | 
+              <td><%= link_to 'Edit', '#' %> | 
                   <%= link_to 'Delete', [@event, event], method: :delete, data: {confirm: 'Are you sure?' } %>
               </td>
             <% end %>
