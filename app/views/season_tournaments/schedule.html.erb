@@ -24,8 +24,8 @@
             <td><%= link_to event.tournament_name, event %></td>
             <td><%= event.course_name %></td>
             <td><%= event.rounds %></td>
-            <td></td>
-            <td></td>
+            <td><%= event.display_winners %></td>
+            <td>edit | delete</td>
           </tr>
         <% end %>
       </tbody>

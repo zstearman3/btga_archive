@@ -1,5 +1,7 @@
 class Golfer < ApplicationRecord
   belongs_to :society
+  has_many :event_winners, dependent: :destroy
+  has_many :season_tournament, through: :event_winners
   has_many :golfer_seasons, dependent: :destroy
   has_many :golfer_events, dependent: :destroy
   has_many :golfer_rounds, dependent: :destroy
@@ -11,5 +13,10 @@ class Golfer < ApplicationRecord
     else
       handicap.to_s
     end
+  end
+  
+  def update_victory_count
+    self.victories = event_winners.count
+    self.save
   end
 end

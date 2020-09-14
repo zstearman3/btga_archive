@@ -33,6 +33,9 @@
             <% event.golfer_rounds.order(:round_order).each do |round| %>
             <td><%= round.score %></td>
             <% end %>
+            <% (@event.rounds - event.golfer_rounds.count).times do %>
+            <td></td>
+            <% end %>
             <td><%= event.score %></td>
             <% if !@event.finalized %>
               <td>Edit | Delete</td>
@@ -44,5 +47,7 @@
   </div>
   <% if !@event.finalized %>
     <%= link_to "Finalize Event", finalize_event_path(@event) %>
+  <% else %>
+    <%= link_to "Unfinalize Event", unfinalize_event_path(@event) %>
   <% end %>
 </div>

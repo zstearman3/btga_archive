@@ -35,7 +35,7 @@ class GolferEventsController < ApplicationController
       @golfer_season.society = @golfer_event.society
       @golfer_season.save
       flash[:success] = "Tournament logged!"
-      redirect_to root_url
+      redirect_to @season_tournament
     else
       render 'new'
     end

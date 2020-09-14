@@ -1,5 +1,5 @@
 class SeasonTournamentsController < ApplicationController
-  before_action :select_event, only: [:show, :edit, :update, :destroy, :finalize]
+  before_action :select_event, only: [:show, :edit, :update, :destroy, :finalize, :unfinalize]
   
   def index
     @events = SeasonTournament.all
@@ -49,6 +49,11 @@ class SeasonTournamentsController < ApplicationController
       flash[:warning] = "Event not finalized!"
       redirect_to @event
     end
+  end
+  
+  def unfinalize
+    @event.unfinalize_event
+    redirect_to @event
   end
   
   private
