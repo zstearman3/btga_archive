@@ -276,3 +276,23 @@ body{
   max-width: 1000px;
   margin: 0px auto;
 }
+
+// Event Banner
+.event-banner{
+  max-width: 1000px;
+  width: 100%;
+  margin: 10px auto;
+  border: 1px solid $btga-blue;
+  border-radius: 5px;
+  .current-event{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+    background-color: $btga-blue;
+    h3, p {
+      margin: 5px 10px;
+    }
+  }
+}

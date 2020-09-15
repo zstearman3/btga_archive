@@ -16,4 +16,8 @@ class Season < ApplicationRecord
   def self.current_id
     CURRENT_ID
   end
+  
+  def current_event
+    season_tournaments.where("start_date < ?", Date.today).order(:start_date).last
+  end
 end

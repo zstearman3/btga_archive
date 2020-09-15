@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  root 'season_tournaments#schedule', id: Season.current_id
+  root 'seasons#show', id: Season.current_id
   resources :seasons
   resources :courses
   resources :golfers

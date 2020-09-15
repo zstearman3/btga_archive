@@ -8,4 +8,23 @@ class GolferSeason < ApplicationRecord
   def name
     golfer.name
   end
+  
+  def update_points
+    self.points = golfer_events.sum(:points)
+  end
+  
+  def update_events
+    self.events = golfer_events.count
+  end
+  
+  def update_wins
+    self.wins = golfer_events.joins(:season_tournament).where(season_tournaments: {finalized: true}).where(finish: 1).count
+  end
+  
+  def update_season
+    self.update_points
+    self.update_events
+    self.update_wins
+    self.save
+  end
 end

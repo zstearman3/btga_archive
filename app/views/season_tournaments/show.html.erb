@@ -21,7 +21,9 @@
             <th><%= "R#{i}" %></th>
           <% end %>
           <th>Strokes</th>
-          <% if !@event.finalized %>
+          <% if @event.finalized %>
+            <th>Points</th>
+          <% else %>
             <th>Actions</th>
           <% end %>
         </tr>
@@ -39,7 +41,9 @@
             <td></td>
             <% end %>
             <td><%= event.score %></td>
-            <% if !@event.finalized %>
+            <% if @event.finalized %>
+              <td><%= event.points %></td>
+            <% else %>
               <td><%= link_to 'Edit', '#' %> | 
                   <%= link_to 'Delete', [@event, event], method: :delete, data: {confirm: 'Are you sure?' } %>
               </td>

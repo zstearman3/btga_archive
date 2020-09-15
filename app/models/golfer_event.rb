@@ -8,13 +8,22 @@ class GolferEvent < ApplicationRecord
   belongs_to :tournament
   belongs_to :course
   has_many :golfer_rounds, dependent: :destroy
+  validates_uniqueness_of :golfer_id, scope: %i[season_tournament_id]
   
   def calculate_score_to_par
     score - (season_tournament.rounds * course.par)
   end
   
   def calculate_finish
-    GolferEvent.where(season_tournament: season_tournament).where("score < ?", score).count + 1
+    self.finish = GolferEvent.where(season_tournament: season_tournament).where("score < ?", score).count + 1
+  end
+  
+  def calculate_points
+    if finish && season_tournament
+      self.points = season_tournament.points_hash[finish.to_s]
+    else
+      self.points = 0
+    end
   end
   
   def display_score_to_par
