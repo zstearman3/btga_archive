@@ -293,6 +293,18 @@ body{
     background-color: $btga-blue;
     h3, p {
       margin: 5px 10px;
+      a{
+        color: white;
+      }
+    }
+  }
+  .next-event{
+    background-color: $btga-blue;
+    border-top: 1px dashed $btga-red;
+    color: white;
+    h4, p{
+      margin: 0px;
+      padding: 5px 10px;
     }
   }
 }

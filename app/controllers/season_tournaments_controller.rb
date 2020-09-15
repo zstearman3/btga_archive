@@ -47,18 +47,12 @@ class SeasonTournamentsController < ApplicationController
   end
   
   def finalize
-    @event.finalize_event
-    if @event.save
-      flash[:success] = "Event finalized!"
-      redirect_to @event
-    else
-      flash[:warning] = "Event not finalized!"
-      redirect_to @event
-    end
+    @event.finalize_event ? flash[:success] = "Event finalized!": flash[:warning] = "Event not finalized!"
+    redirect_to @event
   end
   
   def unfinalize
-    @event.unfinalize_event
+    @event.unfinalize_event ? flash[:success] = "Event unfinalized!": flash[:warning] = "Error unfinalizing event!"
     redirect_to @event
   end
   

@@ -96,14 +96,20 @@ class SeasonTournament < ApplicationRecord
         event.golfer.update_victory_count
       end
     end
-    season.golfer_seasons.each { |season| season.update_season }
+    season.golfer_seasons.each { |g| g.update_season }
     self.finalized = true
+    self.save ? true : false
   end
   
   def unfinalize_event
     event_winners.destroy_all
+    golfer_events.each do |event|
+      event.points = 0
+      event.save
+    end
+    season.golfer_seasons.each { |g| g.update_season }
     self.finalized = false
-    self.save
+    self.save ? true : false
   end
   
   def select_default_course

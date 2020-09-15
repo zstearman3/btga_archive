@@ -18,6 +18,10 @@ class Season < ApplicationRecord
   end
   
   def current_event
-    season_tournaments.where("start_date < ?", Date.today).order(:start_date).last
+    season_tournaments.where("start_date < ?", Date.today + 1.day).order(:start_date).last
+  end
+  
+  def next_event
+    season_tournaments.where("start_date > ?", Date.today).order(:start_date).first
   end
 end
