@@ -4,6 +4,7 @@ class GolferSeason < ApplicationRecord
   belongs_to :golfer
   has_many :golfer_events, dependent: :destroy
   has_many :golfer_rounds, dependent: :destroy
+  has_many :event_winners, dependent: :destroy
   
   def name
     golfer.name
@@ -18,7 +19,7 @@ class GolferSeason < ApplicationRecord
   end
   
   def update_wins
-    self.wins = golfer_events.joins(:season_tournament).where(season_tournaments: {finalized: true}).where(finish: 1).count
+    self.wins = event_winners.count
   end
   
   def update_season

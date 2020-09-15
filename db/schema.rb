@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_14_140911) do
+ActiveRecord::Schema.define(version: 2020_09_15_185428) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,7 +30,9 @@ ActiveRecord::Schema.define(version: 2020_09_14_140911) do
     t.bigint "season_tournament_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "golfer_season_id"
     t.index ["golfer_id"], name: "index_event_winners_on_golfer_id"
+    t.index ["golfer_season_id"], name: "index_event_winners_on_golfer_season_id"
     t.index ["season_tournament_id"], name: "index_event_winners_on_season_tournament_id"
   end
 
