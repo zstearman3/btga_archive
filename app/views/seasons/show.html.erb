@@ -13,7 +13,7 @@
     </div>
   <% else %>
     <div class="next-event">
-      <p>Next up: <%= link_to @season.ryder_cup.name, @season.ryder_cup %></p>
+      <p>Next up: <%= link_to @season.ryder_cup.name, ryder_cup_path(@season.year) %></p>
     </div>
   <% end %>
 </div>
