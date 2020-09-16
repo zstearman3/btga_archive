@@ -229,10 +229,12 @@ body{
   max-width: 1000px;
   margin: auto;
   display: flex;
+  flex-wrap: wrap;
   #team-usa-roster{
     display: inline-block;
     max-width: 460px;
-    margin: 0px 10px;
+    min-width: 300px;
+    margin: 5px;
     .table-info{
       background-color: $btga-blue;
     }
@@ -240,7 +242,8 @@ body{
   #team-europe-roster{
     display: inline-block;
     max-width: 460px;
-    margin: 0px 10px;
+    min-width: 300px;
+    margin: 5px;
     .table-info{
 
     }
