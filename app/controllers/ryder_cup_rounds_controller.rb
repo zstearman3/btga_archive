@@ -12,6 +12,7 @@ class RyderCupRoundsController < ApplicationController
     @europe = @session.ryder_cup.team_europe.golfers
     @usa = @session.ryder_cup.team_usa.golfers
     if @round.save
+      @round.calculate_points
       flash[:success] = "Round added!"
       redirect_to @session
     else
@@ -20,11 +21,25 @@ class RyderCupRoundsController < ApplicationController
   end
   
   def edit
-    
+    @session = RyderCupSession.find(params[:ryder_cup_session_id])
+    @round = @session.ryder_cup_rounds.find(params[:id])
+    @europe = @session.ryder_cup.team_europe.golfers
+    @usa = @session.ryder_cup.team_usa.golfers
   end
   
   def update
-    
+    @session = RyderCupSession.find(params[:ryder_cup_session_id])
+    @round = @session.ryder_cup_rounds.find(params[:id])
+    if @round.update(round_params)
+      @round.calculate_points
+      @session.team_europe_score = @session.ryder_cup_rounds.sum(:europe_points)
+      @session.team_usa_score = @session.ryder_cup_rounds.sum(:usa_points)
+      @session.save
+      flash['success'] = "Round updated!"
+      redirect_to @session
+    else
+      render 'edit'
+    end
   end
   
   def destroy

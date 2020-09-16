@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_16_031440) do
+ActiveRecord::Schema.define(version: 2020_09_16_143730) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -136,8 +136,8 @@ ActiveRecord::Schema.define(version: 2020_09_16_031440) do
     t.integer "usa_golfer_two_id"
     t.integer "europe_score"
     t.integer "usa_score"
-    t.integer "europe_points"
-    t.integer "usa_points"
+    t.decimal "europe_points"
+    t.decimal "usa_points"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["ryder_cup_session_id"], name: "index_ryder_cup_rounds_on_ryder_cup_session_id"
@@ -152,6 +152,7 @@ ActiveRecord::Schema.define(version: 2020_09_16_031440) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "course_id"
+    t.boolean "finalized", default: false
     t.index ["course_id"], name: "index_ryder_cup_sessions_on_course_id"
     t.index ["ryder_cup_id"], name: "index_ryder_cup_sessions_on_ryder_cup_id"
   end

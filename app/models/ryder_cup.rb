@@ -45,4 +45,12 @@ class RyderCup < ApplicationRecord
     "#{season.year} Ryder Cup"
   end
   
+  def europe_score
+    ryder_cup_sessions.sum(:team_europe_score)
+  end
+  
+  def usa_score
+    ryder_cup_sessions.sum(:team_usa_score)
+  end
+  
 end

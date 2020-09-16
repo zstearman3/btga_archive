@@ -18,17 +18,21 @@
           <th class="europe">Score</th>
           <th class="europe">Europe</th>
           <th class="europe">PTS</th>
+          <th>Actions</th>
         </tr>
       </thead>
       <tbody>
         <% @rounds.all.each do |round| %>
           <tr>
-            <td></td>
+            <td><%= round.usa_points %></td>
             <td><%= round.usa_golfers %></td>
-            <td></td>
-            <td></td>
+            <td><%= round.usa_score %></td>
+            <td><%= round.europe_score %></td>
             <td><%= round.europe_golfers %></td>
-            <td></td>
+            <td><%= round.europe_points %></td>
+            <td><%= link_to "Edit", edit_ryder_cup_session_ryder_cup_round_path(@session, round) %> |
+                <%= link_to "Delete", "#" %>
+            </td>
           </tr>
         <% end %>
       </tbody>

@@ -47,6 +47,7 @@
             <th><%= link_to "S#{i}", ryder_cup_session_path(session) %></th>
             <% i += 1 %>
           <% end %>
+          <th>Total</th>
         </tr>
       </thead>
       <tbody>
@@ -55,12 +56,14 @@
           <% @sessions.each do |session| %>
             <td><%= session.team_usa_score %></td>
           <% end %>
+          <td><%= @ryder_cup.usa_score %></td>
         </tr>
         <tr>
           <td>Team Europe</td>
           <% @sessions.each do |session| %>
             <td><%= session.team_europe_score %></td>
           <% end %>
+          <td><%= @ryder_cup.europe_score %></td>
         </tr>
       </tbody>
     </table>
