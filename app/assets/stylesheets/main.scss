@@ -153,25 +153,25 @@ body{
       text-decoration: none;
     }
   }
+  .event-info{
+    width: 80%;
+    h3{
+      padding-left: 10px;
+      color: white;
+      margin-bottom: 10px;
+    }
+    p{
+      padding-left: 10px;
+      margin: 0px 0px 5px;
+      color: white;
+      }
+  }
   .leaderboard-info{
     width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
     background-color: $btga-red;
-    .event-info{
-      width: 80%;
-      h3{
-        padding-left: 10px;
-        color: white;
-        margin-bottom: 10px;
-      }
-      p{
-        padding-left: 10px;
-        margin: 0px 0px 5px;
-        color: white;
-      }
-    }
     a{
       text-align: right;
       padding-right: 10px;
@@ -197,7 +197,7 @@ body{
         background-color: $btga-blue;
         color: white;
         a{
-          display: block;
+          display: block ;
           color: white;
           width: 100%;
         }

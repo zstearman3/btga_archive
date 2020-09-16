@@ -8,4 +8,12 @@ class RyderCupSession < ApplicationRecord
   def name
     "#{ryder_cup.season.year} #{scoring_type}"
   end
+  
+  def course_name
+    if course
+      course.name
+    else
+      "N/A"
+    end
+  end
 end

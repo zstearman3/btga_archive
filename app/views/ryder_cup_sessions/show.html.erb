@@ -2,7 +2,10 @@
 
 <div class="table-container">
   <div class="table-info">
-    <h3><%= @session.name %></h3>
+    <div class="event-info">
+      <h3><%= @session.name %></h3>
+      <p><%= @session.course_name %></p>
+    </div>
     <%= link_to 'New Round', new_ryder_cup_session_ryder_cup_round_path(@session) %>
   </div>
   <div class="table-wrapper">
@@ -31,4 +34,7 @@
       </tbody>
     </table>
   </div>
+</div>
+<div class="button-container">
+  <%= link_to "Back to Ryder Cup", ryder_cup_path(2020), class: "button finalize-button" %>
 </div>
