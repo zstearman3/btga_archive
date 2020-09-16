@@ -32,3 +32,37 @@
     </div>
   </div>
 </div>
+
+<div class="table-container">
+  <div class="table-info">
+    <h3>Scorecard</h3>
+  </div>
+  <div class="table-wrapper">
+    <table class="index-table">
+      <thead>
+        <tr>
+          <th>Team</th>
+          <th>S1</th>
+          <th>S2</th>
+          <th>S3</th>
+          <th>S4</th>
+          <th>S5</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Team USA</td>
+          <% @sessions.each do |session| %>
+            <td><%= session.team_usa_score %></td>
+          <% end %>
+        </tr>
+        <tr>
+          <td>Team Europe</td>
+          <% @sessions.each do |session| %>
+            <td><%= session.team_europe_score %></td>
+          <% end %>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

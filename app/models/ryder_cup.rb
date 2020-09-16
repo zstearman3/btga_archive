@@ -1,6 +1,7 @@
 class RyderCup < ApplicationRecord
-  belongs_to :team_europe, :class_name => :RyderCupTeam, :foreign_key => "team_europe_id", dependent: :destroy
-  belongs_to :team_usa, :class_name => :RyderCupTeam, :foreign_key => "team_usa_id", dependent: :destroy
+  has_many :ryder_cup_sessions, dependent: :destroy
+  belongs_to :team_europe, :class_name => :RyderCupTeam, :foreign_key => "team_europe_id"
+  belongs_to :team_usa, :class_name => :RyderCupTeam, :foreign_key => "team_usa_id"
   belongs_to :champion, :class_name => :RyderCupTeam, :foreign_key => "champion_id", optional: true
   belongs_to :season
   validates_uniqueness_of :season_id
@@ -30,6 +31,14 @@ class RyderCup < ApplicationRecord
     r.team_europe = e
     r.team_usa = u
     r.save
+  end
+  
+  def generate_sessions
+    RyderCupSession.create(ryder_cup_id: id, order: 1, scoring_type: "Fourball")
+    RyderCupSession.create(ryder_cup_id: id, order: 2, scoring_type: "Foursome")
+    RyderCupSession.create(ryder_cup_id: id, order: 3, scoring_type: "Fourball")
+    RyderCupSession.create(ryder_cup_id: id, order: 4, scoring_type: "Foursome")
+    RyderCupSession.create(ryder_cup_id: id, order: 5, scoring_type: "Singles")
   end
   
   def name

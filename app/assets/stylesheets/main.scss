@@ -230,7 +230,9 @@ body{
   margin: auto;
   display: flex;
   flex-wrap: wrap;
+  justify-content: space-around;
   #team-usa-roster{
+    border-color: $btga-blue;
     display: inline-block;
     max-width: 460px;
     min-width: 300px;
