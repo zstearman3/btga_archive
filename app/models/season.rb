@@ -4,6 +4,7 @@ class Season < ApplicationRecord
   
   extend FriendlyId
   belongs_to :society
+  has_one :ryder_cup
   has_many :golfer_seasons, dependent: :destroy
   has_many :season_tournaments, -> { order(:season_order) }, dependent: :destroy
   validates_uniqueness_of :year, scope: %i[society_id]

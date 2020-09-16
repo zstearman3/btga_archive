@@ -225,6 +225,27 @@ body{
     }
   }
 }
+.ryder-cup-rosters{
+  max-width: 1000px;
+  margin: auto;
+  display: flex;
+  #team-usa-roster{
+    display: inline-block;
+    max-width: 460px;
+    margin: 0px 10px;
+    .table-info{
+      background-color: $btga-blue;
+    }
+  }
+  #team-europe-roster{
+    display: inline-block;
+    max-width: 460px;
+    margin: 0px 10px;
+    .table-info{
+
+    }
+  }
+}
 
 // Forms
 .form-container{
@@ -307,4 +328,8 @@ body{
       padding: 5px 10px;
     }
   }
+}
+
+#ryder-cup-banner{
+  text-align: center;
 }

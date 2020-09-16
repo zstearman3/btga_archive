@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_15_185428) do
+ActiveRecord::Schema.define(version: 2020_09_16_010812) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -116,6 +116,35 @@ ActiveRecord::Schema.define(version: 2020_09_15_185428) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["society_id"], name: "index_golfers_on_society_id"
+  end
+
+  create_table "ryder_cup_appearances", force: :cascade do |t|
+    t.bigint "golfer_id"
+    t.bigint "ryder_cup_team_id"
+    t.boolean "captain"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["golfer_id"], name: "index_ryder_cup_appearances_on_golfer_id"
+    t.index ["ryder_cup_team_id"], name: "index_ryder_cup_appearances_on_ryder_cup_team_id"
+  end
+
+  create_table "ryder_cup_teams", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "ryder_cups", force: :cascade do |t|
+    t.bigint "season_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "team_europe_id"
+    t.integer "team_usa_id"
+    t.integer "champion"
+    t.index ["champion"], name: "index_ryder_cups_on_champion"
+    t.index ["season_id"], name: "index_ryder_cups_on_season_id"
+    t.index ["team_europe_id"], name: "index_ryder_cups_on_team_europe_id"
+    t.index ["team_usa_id"], name: "index_ryder_cups_on_team_usa_id"
   end
 
   create_table "season_tournaments", force: :cascade do |t|

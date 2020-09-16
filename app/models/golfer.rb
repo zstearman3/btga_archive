@@ -5,6 +5,8 @@ class Golfer < ApplicationRecord
   has_many :golfer_seasons, dependent: :destroy
   has_many :golfer_events, dependent: :destroy
   has_many :golfer_rounds, dependent: :destroy
+  has_many :ryder_cup_appearances, dependent: :destroy
+  has_many :ryder_cup_teams, through: :ryder_cup_appearances
   validates :name, presence: true
   
   def formatted_handicap
