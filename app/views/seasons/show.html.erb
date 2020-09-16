@@ -11,6 +11,10 @@
     <div class="next-event">
       <p>Next up: <%= "#{@season.next_event.tournament_name} @ #{@season.next_event.course_name}" %></p>
     </div>
+  <% else %>
+    <div class="next-event">
+      <p>Next up: <%= link_to @season.ryder_cup.name, @season.ryder_cup %></p>
+    </div>
   <% end %>
 </div>
 
