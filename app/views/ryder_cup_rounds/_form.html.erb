@@ -1,0 +1,48 @@
+<%= form_for [@session, @round] do |form| %>
+  
+  <% if @round.errors.any? %>
+    <div id="error-explanations">
+      <%= pluralize(@round.errors.count, "error") %> prohibited this round from being saved:
+      <ul>
+        <% @round.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  
+  <div class="field">
+    <%= form.label :europe_golfer_1, "Europe Golfer 1" %>
+    <%= form.collection_select :europe_golfer_one_id, @europe.all, :id, :name, {}, {class: 'form-field', id: :europe_golfer_one_id } %>
+  </div>
+  
+  <div class="field">
+    <%= form.label :europe_golfer_2, "Europe Golfer 2" %>
+    <%= form.collection_select :europe_golfer_two_id, @europe.all, :id, :name, {prompt: "Select Golfer"}, {class: 'form-field', id: :europe_golfer_two_id } %>
+  </div>
+  
+  <div class="field">
+    <%= form.label :usa_golfer_1, "USA Golfer 1" %>
+    <%= form.collection_select :usa_golfer_one_id, @usa.all, :id, :name, {}, {class: 'form-field', id: :usa_golfer_one_id } %>
+  </div>
+  
+  <div class="field">
+    <%= form.label :usa_golfer_2, "USA Golfer 2" %>
+    <%= form.collection_select :usa_golfer_two_id, @usa.all, :id, :name, {prompt: "Select Golfer"}, {class: 'form-field', id: :usa_golfer_two_id } %>
+  </div>
+  
+  <div class="field">
+    <%= form.label :europe_score, "Europe Score" %>
+    <%= form.number_field :europe_score, class: 'form-field', id: :round_europe_score %>
+  </div>
+  
+  <div class="field">
+    <%= form.label :usa_score, "USA Score" %>
+    <%= form.number_field :usa_score, class: 'form-field', id: :round_usa_score %>
+  </div>
+  
+  <div class="submit">
+    <%= form.submit yield(:button_text), class: 'button submit-button' %>
+  </div>
+  
+<% end %>

@@ -4,6 +4,9 @@ Rails.application.routes.draw do
   resources :courses
   resources :golfers
   resources :tournaments 
+  resources :ryder_cup_sessions do
+    resources :ryder_cup_rounds
+  end
   resources :season_tournaments, :path => "events" do
     resources :golfer_events
   end

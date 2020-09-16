@@ -196,6 +196,14 @@ body{
         text-align: left;
         background-color: $btga-blue;
         color: white;
+        a{
+          display: block;
+          color: white;
+          width: 100%;
+        }
+      }
+      .europe{
+        background-color: $btga-red;
       }
       th, td{
         border: 1px solid #ddd;

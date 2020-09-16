@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_16_024135) do
+ActiveRecord::Schema.define(version: 2020_09_16_031440) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -128,6 +128,21 @@ ActiveRecord::Schema.define(version: 2020_09_16_024135) do
     t.index ["ryder_cup_team_id"], name: "index_ryder_cup_appearances_on_ryder_cup_team_id"
   end
 
+  create_table "ryder_cup_rounds", force: :cascade do |t|
+    t.bigint "ryder_cup_session_id"
+    t.integer "europe_golfer_one_id"
+    t.integer "europe_golfer_two_id"
+    t.integer "usa_golfer_one_id"
+    t.integer "usa_golfer_two_id"
+    t.integer "europe_score"
+    t.integer "usa_score"
+    t.integer "europe_points"
+    t.integer "usa_points"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["ryder_cup_session_id"], name: "index_ryder_cup_rounds_on_ryder_cup_session_id"
+  end
+
   create_table "ryder_cup_sessions", force: :cascade do |t|
     t.bigint "ryder_cup_id"
     t.string "scoring_type"
@@ -136,6 +151,8 @@ ActiveRecord::Schema.define(version: 2020_09_16_024135) do
     t.integer "order"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "course_id"
+    t.index ["course_id"], name: "index_ryder_cup_sessions_on_course_id"
     t.index ["ryder_cup_id"], name: "index_ryder_cup_sessions_on_ryder_cup_id"
   end
 

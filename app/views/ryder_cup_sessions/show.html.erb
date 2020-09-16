@@ -1,0 +1,34 @@
+<% provide(:title, @session.name) %>
+
+<div class="table-container">
+  <div class="table-info">
+    <h3><%= @session.name %></h3>
+    <%= link_to 'New Round', new_ryder_cup_session_ryder_cup_round_path(@session) %>
+  </div>
+  <div class="table-wrapper">
+    <table class="index-table">
+      <thead>
+        <tr>
+          <th>PTS</th>
+          <th>USA</th>
+          <th>Score</th>
+          <th class="europe">Score</th>
+          <th class="europe">Europe</th>
+          <th class="europe">PTS</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @rounds.all.each do |round| %>
+          <tr>
+            <td></td>
+            <td><%= round.usa_golfers %></td>
+            <td></td>
+            <td></td>
+            <td><%= round.europe_golfers %></td>
+            <td></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
