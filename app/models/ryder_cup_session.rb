@@ -1,5 +1,5 @@
 class RyderCupSession < ApplicationRecord
-  ALLOWED_TYPES = ["Fourball", "Foursome", "Singles"]
+  ALLOWED_TYPES = ["Fourball", "Foursome", "Scramble", "Singles"]
   has_many :ryder_cup_rounds, dependent: :destroy
   belongs_to :ryder_cup
   belongs_to :course, optional: true
