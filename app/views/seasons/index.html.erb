@@ -3,7 +3,6 @@
 <div class="table-container">
   <div class="table-info">
     <h3>BTGA History</h3>
-    <%= link_to 'New Season', '#' %>
   </div>
   <div class="table-wrapper">
     <table class="index-table">
@@ -19,7 +18,7 @@
           <tr>
             <td><%= season.year %></td>
             <td></td>
-            <td></td>
+            <td><%= season.champion_name %></td>
           </tr>
         <% end %>
       </tbody>
