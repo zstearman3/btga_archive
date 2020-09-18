@@ -3,10 +3,7 @@
     <div class="navbar">
       <h1 id="header-logo"><%= link_to 'BTGA', root_url %></h1>
       <ul class="navbar-right desktop-navbar">
-        <li><%= link_to 'Schedule', schedule_path(Season.current_year) %></li>
-        <li><%= link_to 'Courses', courses_path %></li>
-        <li><%= link_to 'Roster', roster_path %></li>
-        <li><%= link_to 'Tournaments', tournaments_path %></li>
+        <%= render 'layouts/navbar_links' %>
       </ul>
       <a class="navbar-toggle icon" id="mobile-navbar-toggle">
         <span class="icon-bar"></span>
@@ -16,10 +13,7 @@
     </div>
     <div class="mobile-header-container">
       <ul id="mobile-navbar">
-        <li><%= link_to 'Schedule', schedule_path(Season.current_year) %></li>
-        <li><%= link_to 'Courses', courses_path %></li>
-        <li><%= link_to 'Roster', roster_path %></li>
-        <li><%= link_to 'Tournaments', tournaments_path %></li>
+        <%= render 'layouts/navbar_links' %>
       </ul>
     </div>
   </div>
