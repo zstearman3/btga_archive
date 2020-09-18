@@ -19,16 +19,18 @@ class GolferEventsController < ApplicationController
     @golfer_event.golfer_season = @golfer_season
     @golfer_event.tournament = @season_tournament.tournament
     @golfer_event.course = @season_tournament.course
-    for i in 1..@season_tournament.rounds
-      new_round = GolferRound.new(golfer_event: @golfer_event)
-      new_round.init_from_event(i, params[:golfer_event][:"round_#{i}_score"].to_i)
-      if !new_round.save
-        raise "Round #{i} was not saved: #{new_round.inspect}"
+    if @golfer_event.completed
+      for i in 1..@season_tournament.rounds
+        new_round = GolferRound.new(golfer_event: @golfer_event)
+        new_round.init_from_event(i, params[:golfer_event][:"round_#{i}_score"].to_i)
+        if !new_round.save
+          raise "Round #{i} was not saved: #{new_round.inspect}"
+        end
       end
+      @golfer_event.score = 0
+      @golfer_event.golfer_rounds.each { |round| @golfer_event.score += round.score }
+      @golfer_event.score_to_par = @golfer_event.calculate_score_to_par
     end
-    @golfer_event.score = 0
-    @golfer_event.golfer_rounds.each { |round| @golfer_event.score += round.score }
-    @golfer_event.score_to_par = @golfer_event.calculate_score_to_par
     if @golfer_event.save
       @season_tournament.golfer_events.each do |event|
         event.finish = event.calculate_finish
@@ -42,9 +44,50 @@ class GolferEventsController < ApplicationController
       render 'new'
     end
   end
+ 
+  def edit
+    @season = @season_tournament.season
+    for i in 1..@golfer_event.golfer_rounds.count
+      @golfer_event.set_round_accessor_score(i)
+    end
+  end
+  
+  def update
+    @golfer_event.assign_attributes(event_params)
+    if @golfer_event.completed
+      for i in 1..@season_tournament.rounds
+        round = @golfer_event.golfer_rounds.find_or_create_by(round_order: i)
+        round.init_from_event(i, params[:golfer_event][:"round_#{i}_score"].to_i)
+        if !round.save
+          raise "Round #{i} was not saved: #{new_round.inspect}"
+        end
+      end
+      @golfer_event.score = 0
+      @golfer_event.golfer_rounds.each { |round| @golfer_event.score += round.score }
+      @golfer_event.score_to_par = @golfer_event.calculate_score_to_par
+    end
+    if @golfer_event.save
+      @season_tournament.golfer_events.each do |event|
+        event.finish = event.calculate_finish
+        event.save
+      end
+      flash[:success] = "Tournament logged!"
+      redirect_to @season_tournament
+    else
+      render 'edit'
+    end
+  end
   
   def destroy
-    @golfer_event.destroy ? flash[:success] = "Event deleted!" : flash[:danger] = "There was a problem deleting the event!"
+    if @golfer_event.destroy 
+      @season_tournament.golfer_events.each do |event|
+        event.finish = event.calculate_finish
+        event.save
+      end
+      flash[:success] = "Event deleted!" 
+    else
+      flash[:danger] = "There was a problem deleting the event!"
+    end
     redirect_to @season_tournament
   end
   

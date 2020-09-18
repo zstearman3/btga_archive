@@ -23,6 +23,7 @@ class GolferSeason < ApplicationRecord
   end
   
   def update_season
+    golfer.update_victory_count
     self.update_points
     self.update_events
     self.update_wins

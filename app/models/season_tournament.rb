@@ -87,6 +87,9 @@ class SeasonTournament < ApplicationRecord
   
   def finalize_event
     golfer_events.each do |event|
+      if !event.completed
+        return false
+      end
       event.calculate_finish
       event.calculate_points
       event.save

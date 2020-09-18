@@ -44,7 +44,7 @@
             <% if @event.finalized %>
               <td><%= event.points %></td>
             <% else %>
-              <td><%= link_to 'Edit', '#' %> | 
+              <td><%= link_to 'Edit', edit_season_tournament_golfer_event_path(@event, event) %> | 
                   <%= link_to 'Delete', [@event, event], method: :delete, data: {confirm: 'Are you sure?' } %>
               </td>
             <% end %>
