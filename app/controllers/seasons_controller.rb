@@ -6,6 +6,8 @@ class SeasonsController < ApplicationController
   end
   
   def show
+    @current_event = @season.current_event
+    @next_event = @season.next_event
     @seasons = @season.golfer_seasons.order(points: :desc)
   end
   

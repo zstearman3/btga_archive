@@ -3,15 +3,17 @@
 <div class="event-banner">
   <div class="current-event">
     <div class="event-info">
-      <p>Current Event (Ends <%= @season.current_event.end_date.strftime("%m/%d/%Y") %>)</p>
-      <h3><%= link_to "#{@season.current_event.tournament_name} @ #{@season.current_event.course_name}", @season.current_event %></h3>
+      <% if @current_event %>
+        <p>Current Event (Ends <%= @current_event.formatted_end_date %>)</p>
+        <h3><%= link_to "#{@current_event.tournament_name} @ #{@current_event.course_name}", @current_event %></h3>
+      <% end %>
     </div>
   </div>
-  <% if @season.next_event %>
+  <% if @next_event %>
     <div class="next-event">
-      <p>Next up: <%= "#{@season.next_event.tournament_name} @ #{@season.next_event.course_name}" %></p>
+      <p>Next up: <%= "#{@next_event.tournament_name} @ #{@next_event.course_name}" %></p>
     </div>
-  <% else %>
+  <% elsif @season.ryder_cup %>
     <div class="next-event">
       <p>Next up: <%= link_to @season.ryder_cup.name, ryder_cup_path(@season.year) %></p>
     </div>

@@ -115,4 +115,8 @@ class SeasonTournament < ApplicationRecord
   def select_default_course
     @course = Tournament.find(params[:id]).course
   end
+  
+  def formatted_end_date
+    end_date.strftime("%m/%d/%Y")
+  end
 end
