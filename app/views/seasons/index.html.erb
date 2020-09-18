@@ -17,7 +17,7 @@
         <% @seasons.all.each do |season| %>
           <tr>
             <td><%= season.year %></td>
-            <td></td>
+            <td><%= link_to season.season_tournaments.count, schedule_path(season.year) %></td>
             <td><%= season.champion_name %></td>
           </tr>
         <% end %>

@@ -43,7 +43,10 @@ class RyderCupRoundsController < ApplicationController
   end
   
   def destroy
-    
+    @session = RyderCupSession.find(params[:ryder_cup_session_id])
+    @round = @session.ryder_cup_rounds.find(params[:id])
+    @round.destroy ? flash[:success] = "Round deleted!" : flash[:warning] = "There was a problem deleting the round!"
+    redirect_to @session
   end
   
   private

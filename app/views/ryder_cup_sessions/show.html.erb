@@ -31,7 +31,7 @@
             <td><%= round.europe_golfers %></td>
             <td><%= round.europe_points %></td>
             <td><%= link_to "Edit", edit_ryder_cup_session_ryder_cup_round_path(@session, round) %> |
-                <%= link_to "Delete", "#" %>
+                <%= link_to "Delete", [@session, round], method: :delete, data: {confirm: 'Are you sure?'} %>
             </td>
           </tr>
         <% end %>
