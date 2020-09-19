@@ -1,5 +1,6 @@
 class Golfer < ApplicationRecord
   belongs_to :society
+  has_many :headlines
   has_many :event_winners, dependent: :destroy
   has_many :season_tournament, through: :event_winners
   has_many :golfer_seasons, dependent: :destroy

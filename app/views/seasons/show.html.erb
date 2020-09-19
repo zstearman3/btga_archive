@@ -1,5 +1,15 @@
 <% provide(:title, "#{@season.year} Season") %>
 
+<% if @active_stories.count > 0 %>
+  <div class="news-banner">
+    <div class="story-container">
+      <p>Headlines</p>
+      <h4><%= @active_stories.first.story %></h4>
+    </div>
+    <%= link_to "+", new_headline_path, class:"button"%>
+  </div>
+<% end %>
+
 <div class="event-banner">
   <div class="current-event">
     <div class="event-info">

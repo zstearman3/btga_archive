@@ -11,6 +11,8 @@ class SeasonTournamentsController < ApplicationController
     
   def new
     @event = SeasonTournament.new
+    @season = Season.find_by(year: params[:season])
+    @season_id = @season.id if @season
   end
   
   def create

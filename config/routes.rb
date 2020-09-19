@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   resources :seasons
   resources :courses
   resources :golfers
+  resources :headlines, only: [:new, :create, :destroy]
   resources :tournaments 
   resources :ryder_cup_sessions do
     resources :ryder_cup_rounds

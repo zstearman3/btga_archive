@@ -346,6 +346,27 @@ body{
   }
 }
 
+.news-banner{
+  max-width: 1000px;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  .story-container{
+    width: 90%;
+    h4{
+      margin: 0px;
+    }
+    p{
+      margin: 10px 0px 5px;
+      color: $btga-red;
+    }
+  }
+  a{
+    text-decoration: none;
+  }
+}
+
 #ryder-cup-banner{
   text-align: center;
 }

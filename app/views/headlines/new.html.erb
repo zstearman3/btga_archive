@@ -1,1 +1,44 @@
 <% provide(:title, 'Create Headline') %>
+
+<div class="form-container">
+  <h1>Create a Headline</h1>
+  
+  <%= form_for(@headline) do |form| %>
+  
+    <% if @headline.errors.any? %>
+      <div id="error-explanations">
+        <%= pluralize(@headline.errors.count, "error") %> prohibited this headline from being saved:
+        <ul>
+          <% @headline.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+    
+    <div class="field">
+      <%= form.label :story %>
+      <%= form.text_field :story, class: 'form-field', id: :headline_story %>
+    </div>
+    
+    <div class="field">
+      <%= form.label :importance %>
+      <%= form.select :importance, Headline.importance_options, {}, {class: 'form-field', id: :headline_importance} %>
+    </div>
+    
+    <div class="field">
+      <%= form.label :golfer %>
+      <%= form.collection_select :golfer_id, Golfer.all.order(:name), :id, :name, {prompt: 'Select Golfer'}, {class: 'form-field', id: :headline_golfer_id }%>
+    </div>
+    
+    <div class="field">
+      <%= form.label :event %>
+      <%= form.collection_select :season_tournament_id, SeasonTournament.where(season: Season.current_id).all.order(:start_date), :id, :tournament_name, {prompt: 'Select Event'}, {class: 'form-field', id: :headline_event_id }%>
+    </div>
+    
+    <div class="submit">
+      <%= form.submit 'Create Headline', class: 'button submit-button' %>
+    </div>
+  
+  <% end %>
+</div>

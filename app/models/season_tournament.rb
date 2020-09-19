@@ -4,6 +4,7 @@ class SeasonTournament < ApplicationRecord
   belongs_to :season
   belongs_to :course
   has_many :event_winners
+  has_many :headlines
   has_many :golfers, through: :event_winners
   has_many :golfer_events, dependent: :destroy
   has_many :golfer_rounds, dependent: :destroy

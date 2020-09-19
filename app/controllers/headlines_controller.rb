@@ -6,6 +6,7 @@ class HeadlinesController < ApplicationController
   
   def create
     @headline = Headline.new(headline_params)
+    @headline.story_date = Date.today
     @headline.expiration_date = @headline.get_expiration_date
     @headline.society = Society.last
     if @headline.save
