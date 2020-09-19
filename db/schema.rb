@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_18_160234) do
+ActiveRecord::Schema.define(version: 2020_09_19_151424) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -116,6 +116,21 @@ ActiveRecord::Schema.define(version: 2020_09_18_160234) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["society_id"], name: "index_golfers_on_society_id"
+  end
+
+  create_table "headlines", force: :cascade do |t|
+    t.text "story"
+    t.string "importance"
+    t.date "story_date"
+    t.date "expiration_date"
+    t.bigint "golfer_id"
+    t.bigint "season_tournament_id"
+    t.bigint "society_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["golfer_id"], name: "index_headlines_on_golfer_id"
+    t.index ["season_tournament_id"], name: "index_headlines_on_season_tournament_id"
+    t.index ["society_id"], name: "index_headlines_on_society_id"
   end
 
   create_table "ryder_cup_appearances", force: :cascade do |t|
