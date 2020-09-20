@@ -62,7 +62,7 @@
 
 <script>
   let headlines = <%= @active_stories.to_json.to_s.html_safe %>;
-  let i = 0;
+  let i = 1;
   
   function scrollText(headlines, i){
     document.getElementById("headline-text").innerText = headlines[i]["story"]
