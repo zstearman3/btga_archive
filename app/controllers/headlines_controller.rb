@@ -26,7 +26,7 @@ class HeadlinesController < ApplicationController
   private
   
     def headline_params
-      params.require(:headline).permit(:story, :importance, :creation_date, :expiration_date, 
+      params.require(:headline).permit(:story, :importance, :story_date, :expiration_date, 
                      :golfer_id, :season_tournament_id, :society_id)
     end
 end

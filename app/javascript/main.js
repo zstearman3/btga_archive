@@ -13,9 +13,5 @@ function handleClick() {
 }
 
 function selectCourse() {
-  // ajax({
-  //   url: "/select_default_course",
-  //   type: "GET",
-  //   data: {id: this.value }
-  // })
+  console.log("This function isn't quite... functional yet.")
 }

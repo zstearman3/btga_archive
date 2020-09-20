@@ -9,7 +9,7 @@ class SeasonsController < ApplicationController
     @current_event = @season.current_event
     @next_event = @season.next_event
     @seasons = @season.golfer_seasons.order(points: :desc)
-    @active_stories = Headline.where("expiration_date > ?", Date.today)
+    @active_stories = Headline.where("expiration_date > ?", Date.today).order(story_date: :desc)
   end
   
   private

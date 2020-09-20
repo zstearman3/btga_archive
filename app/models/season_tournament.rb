@@ -87,6 +87,8 @@ class SeasonTournament < ApplicationRecord
   end
   
   def finalize_event
+    winner_name = nil
+    winner_score = nil
     golfer_events.each do |event|
       if !event.completed
         return false
@@ -98,8 +100,11 @@ class SeasonTournament < ApplicationRecord
         event_winner = EventWinner.new(golfer: event.golfer, season_tournament: self, golfer_season: event.golfer_season)
         event_winner.save
         event.golfer.update_victory_count
+        winner_name = event.golfer.name
+        winner_score = event.display_score_to_par
       end
     end
+    headlines.create(story: "#{winner_name} has won the #{tournament_name} with a score of #{winner_score}!", society: Society.last, importance: "Low", story_date: Date.today, expiration_date: Date.today + 3.days)
     season.golfer_seasons.each { |g| g.update_season }
     self.finalized = true
     self.save ? true : false
