@@ -16,7 +16,6 @@ class GolferEventsController < ApplicationController
     @golfer_event = @season_tournament.golfer_events.new(event_params)
     @golfer_event.society = Society.last
     @golfer_season = GolferSeason.find_or_create_by(golfer: @golfer_event.golfer, season: @season_tournament.season)
-    @golfer_season.save
     @golfer_event.golfer_season_id = @golfer_season.id
     @golfer_event.tournament = @season_tournament.tournament
     @golfer_event.course = @season_tournament.course
