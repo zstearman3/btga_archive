@@ -15,12 +15,22 @@ class GolferEvent < ApplicationRecord
   end
   
   def calculate_finish
-    self.finish = GolferEvent.where(season_tournament: season_tournament).where("score < ?", score).count + 1
+    GolferEvent.where(season_tournament: season_tournament).where("score < ?", score).count + 1
   end
   
-  def calculate_points
+  def calculate_ties
+    GolferEvent.where(season_tournament: season_tournament).where("score = ?", score).count - 1
+  end
+  
+  def calculate_points()
+    ties = calculate_ties
     if finish && season_tournament
-      self.points = season_tournament.points_hash[finish.to_s]
+      points = season_tournament.points_hash[finish.to_s]
+      puts(points)
+      for i in 1..ties 
+        points += season_tournament.points_hash[(finish + i).to_s]
+      end
+      self.points = points / (ties + 1)
     else
       self.points = 0
     end
