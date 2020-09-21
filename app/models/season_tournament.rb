@@ -104,7 +104,8 @@ class SeasonTournament < ApplicationRecord
         winner_score = event.display_score_to_par
       end
     end
-    headlines.create(story: "#{winner_name} has won the #{tournament_name} with a score of #{winner_score}!", society: Society.last, importance: "Low", story_date: Date.today, expiration_date: Date.today + 3.days)
+    headline = headlines.new()
+    headline.generate_event_winner_story(winner_name, tournament_name, winner_score)
     season.golfer_seasons.each { |g| g.update_season }
     self.finalized = true
     self.save ? true : false
@@ -112,6 +113,7 @@ class SeasonTournament < ApplicationRecord
   
   def unfinalize_event
     event_winners.destroy_all
+    headlines.destroy_all
     golfer_events.each do |event|
       event.points = 0
       event.save

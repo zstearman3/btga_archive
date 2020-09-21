@@ -22,4 +22,16 @@ class Headline < ApplicationRecord
     end
   end
   
+  def generate_event_winner_story(golfer, tournament, score)
+    templates = [ "#{golfer} has won the #{tournament} with a score of #{score}!",
+                  "#{golfer} shoots #{score} to win the #{tournament}!",
+                  "#{golfer} won the #{tournament} by shooting an impressive #{score}!"
+      ]
+      self.story = templates.sample
+      self.society = Society.last
+      self.importance = "Low"
+      self.story_date = Date.today
+      self.expiration_date = get_expiration_date
+      self.save
+  end
 end
