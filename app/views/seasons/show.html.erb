@@ -61,15 +61,14 @@
 </div>
 
 <script>
-  let headlineText = document.getElementById("headline-text");
   let headlines = <%= @active_stories.to_json.to_s.html_safe %>;
   let i = 1;
   
   function scrollText(headlines, i){
-    headlineText.innerText = headlines[i]["story"]
+    document.getElementById("headline-text").innerText = headlines[i]["story"]
   };
   
-  if (headlineText) {
+  if (document.getElementById("headline-text")) {
     setInterval( function() { 
       scrollText(headlines, i);
       if (i >= headlines.length - 1){
