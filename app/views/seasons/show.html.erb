@@ -61,7 +61,7 @@
 </div>
 
 <script>
-  const headlineText = document.getElementById("headline-text");
+  let headlineText = document.getElementById("headline-text");
   let headlines = <%= @active_stories.to_json.to_s.html_safe %>;
   let i = 1;
   
