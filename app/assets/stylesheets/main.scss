@@ -310,6 +310,14 @@ body{
   max-width: 1000px;
   margin: 0px auto;
 }
+.nav-button-container{
+  display: flex;
+  justify-content: flex-start;
+  .button{
+    margin-right: 10px;
+    text-decoration: none;
+  }
+}
 
 // Event Banner
 .event-banner{
@@ -318,6 +326,7 @@ body{
   margin: 10px auto;
   border: 1px solid $btga-blue;
   border-radius: 5px;
+  background-color: $btga-blue;
   .current-event{
     width: 100%;
     display: flex;
@@ -343,6 +352,14 @@ body{
     a{
       color: white;
     }
+  }
+  #schedule-link{
+    display: block;
+    color: white;
+    text-decoration: none;
+    font-size: 0.9em;
+    padding-left: 10px;
+    padding-bottom: 5px;
   }
 }
 

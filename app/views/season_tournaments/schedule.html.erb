@@ -33,3 +33,8 @@
     </table>
   </div>
 </div>
+
+<div class="button-container nav-button-container">
+  <%= link_to "Previous Season", schedule_path(@previous_season), class: "button previous-button"  if @previous_season %>
+  <%= link_to "Next Season", schedule_path(@next_season), class: "button next-button" if @next_season %>
+</div>

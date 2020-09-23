@@ -28,6 +28,7 @@
       <p>Next up: <%= link_to @season.ryder_cup.name, ryder_cup_path(@season.year) %></p>
     </div>
   <% end %>
+  <%= link_to "View Full Schedule", schedule_path(@season.year), id: "schedule-link" %>
 </div>
 
 <div class="table-container">
@@ -58,6 +59,11 @@
       </tbody>
     </table>
   </div>
+</div>
+
+<div class="button-container nav-button-container">
+  <%= link_to "Previous Season", @previous_season, class: "button previous-button"  if @previous_season %>
+  <%= link_to "Next Season", @next_season, class: "button next-button" if @next_season %>
 </div>
 
 <script>

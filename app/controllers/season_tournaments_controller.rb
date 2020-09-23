@@ -45,6 +45,8 @@ class SeasonTournamentsController < ApplicationController
   
   def schedule
     @season = Season.includes(season_tournaments: [:tournament, :course]).find(params[:id])
+    @previous_season = Season.find_by(year: @season.year - 1)
+    @next_season = Season.find_by(year: @season.year + 1)
     @events = @season.season_tournaments
   end
   
