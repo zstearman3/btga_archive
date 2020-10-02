@@ -23,7 +23,7 @@
           <tr class=<%= event.event_level %>>
             <td><%= event.start_date.strftime('%m/%d/%Y') %></td>
             <td><%= event.type_stub %></td>
-            <td><%= link_to event.tournament_name, event %></td>
+            <td><%= link_to event.tournament_name, event, class: "block-link" %></td>
             <td><%= event.course_name %></td>
             <td><%= event.rounds %></td>
             <td><%= event.display_winners %></td>
