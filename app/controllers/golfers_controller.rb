@@ -5,7 +5,10 @@ class GolfersController < ApplicationController
     @golfers = Golfer.all.order(:handicap)
   end
   
-  def show; end
+  def show
+    @golfer_season = @golfer.golfer_seasons.find_by(season_id: Season.current_id)
+    @events = @golfer.golfer_events.joins(:season_tournament).merge(SeasonTournament.order(start_date: :desc))
+  end
   
   def new
     @golfer = Golfer.new
@@ -41,7 +44,7 @@ class GolfersController < ApplicationController
   private
     def select_golfer
       begin
-        @golfer = Golfer.find(params[:id])
+        @golfer = Golfer.includes(:golfer_seasons).find(params[:id])
       rescue StandardError => e
         redirect_to roster_path
         flash[:danger] = e.message

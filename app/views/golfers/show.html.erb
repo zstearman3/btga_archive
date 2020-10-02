@@ -1,0 +1,82 @@
+<% provide(:title, @golfer.name) %>
+
+<div class="golfer-profile">
+  <div class="golfer-headline">
+    <h1><%= @golfer.name %></h1>
+    <div class="golfer-info">
+      <div class="info-line">
+        <div class="info-item">
+          <p class="title">Gamertag</p>
+          <p><%= @golfer.gamertag %></p>
+        </div>
+        <div class="info-item">
+          <p class="title">Handicap</p>
+          <p><%= @golfer.formatted_handicap %></p>
+        </div>
+        <div class="info-item">
+          <p class="title">Career Wins</p>
+          <p><%= @golfer.victories %></p>
+        </div>
+        <div class="info-item">
+          <p class="title">Major Wins</p>
+          <p><%= @golfer.major_victories %></p>
+        </div>
+        <div class="info-item">
+          <p class="title">BTGA Cups</p>
+          <p><%= @golfer.btga_cups %></p>
+        </div>
+      </div>
+      <div class="info-line">
+        <div class="info-item">
+          <p class="title">BTGA Cup Rank</p>
+          <p><%= @golfer_season.rank %></p>
+        </div>
+        <div class="info-item">
+          <p class="title">Season Points</p>
+          <p><%= @golfer_season.points %></p>
+        </div>
+        <div class="info-item">
+          <p class="title">Season Events</p>
+          <p><%= @golfer_season.events %></p>
+        </div>
+        <div class="info-item">
+          <p class="title">Season Wins</p>
+          <p><%= @golfer_season.wins %></p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="table-container">
+    <div class="table-info">
+      <h3>Recent Events</h3>
+    </div>
+    <div class="table-wrapper">
+      <table class="index-table">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Type</th>
+            <th>Event</th>
+            <th>Course</th>
+            <th>Score</th>
+            <th>Finish</th>
+            <th>Points</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @events.first(5).each do |event| %>
+            <tr>
+              <td><%= event.season_tournament.start_date.strftime('%m/%d/%Y') %></td>
+              <td><%= event.season_tournament.type_stub %></td>
+              <td><%= event.season_tournament.tournament_name %></td>
+              <td><%= event.season_tournament.course_name %></td>
+              <td><%= event.display_score_to_par %></td>
+              <td><%= event.finish %></td>
+              <td><%= event.points %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

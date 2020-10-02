@@ -19,7 +19,7 @@
       <tbody>
         <% @golfers.all.each do |golfer| %>
           <tr>
-            <td><%= golfer.name %></td>
+            <td><%= link_to golfer.name, golfer %></td>
             <td><%= golfer.gamertag %></td>
             <td><%= golfer.formatted_handicap %></td>
             <td><%= golfer.victories %></td>

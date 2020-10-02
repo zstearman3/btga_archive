@@ -6,4 +6,10 @@ class EventWinner < ApplicationRecord
   def winner_name
     golfer.name
   end
+  
+  def update_event_level
+    self.event_level = season_tournament.event_level
+    self.save
+  end
+  
 end

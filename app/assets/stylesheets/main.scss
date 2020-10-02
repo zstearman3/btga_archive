@@ -189,8 +189,14 @@ body{
       tr:nth-child(even) {
         background-color: #f2f2f2;
       }
+      tr:nth-child(odd) {
+        background-color: white;
+      }
       tr:hover {
         background-color: #dedede;
+      }
+      .major{
+        font-weight: bold;
       }
       th{
         text-align: left;
@@ -386,4 +392,42 @@ body{
 
 #ryder-cup-banner{
   text-align: center;
+}
+
+// Golfer Profile
+.golfer-profile{
+  max-width: 1000px;
+  margin: 10px auto;
+  background-color: $btga-blue;
+  border-radius: 20px;
+  border: 2px solid $btga-blue;
+  .golfer-headline{
+    border-radius: 18px 18px 0px 0px;
+    background-color: $btga-blue;
+    h1{
+      color: white;
+      margin: 0px;
+      padding: 10px 0px 0px 10px;
+    }
+    .golfer-info{
+      .info-line{
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        .info-item{
+          margin-right: 10px;
+          margin-bottom: 10px;
+        }
+        .title{
+          font-weight: bold;
+        }
+        p{
+          color: white;
+          margin: 2px 0px;
+          padding: 0px 10px;
+        }
+      }
+    }
+  }
 }

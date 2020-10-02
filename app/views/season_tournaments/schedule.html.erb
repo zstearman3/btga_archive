@@ -10,6 +10,7 @@
       <thead>
         <tr>
           <th>Date</th>
+          <th>Type</th>
           <th>Event</th>
           <th>Course</th>
           <th>Rounds</th>
@@ -19,8 +20,9 @@
       </thead>
       <tbody>
         <% @events.all.each do |event| %>
-          <tr>
+          <tr class=<%= event.event_level %>>
             <td><%= event.start_date.strftime('%m/%d/%Y') %></td>
+            <td><%= event.type_stub %></td>
             <td><%= link_to event.tournament_name, event %></td>
             <td><%= event.course_name %></td>
             <td><%= event.rounds %></td>

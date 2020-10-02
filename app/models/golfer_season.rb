@@ -22,11 +22,16 @@ class GolferSeason < ApplicationRecord
     self.wins = event_winners.count
   end
   
+  def update_rank
+    self.rank = GolferSeason.where(season: self.season).where("points > ?", self.points).count + 1
+  end
+  
   def update_season
     golfer.update_victory_count
     self.update_points
     self.update_events
     self.update_wins
+    self.update_rank
     self.save
   end
 end

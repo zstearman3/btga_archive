@@ -18,6 +18,7 @@ class SeasonTournamentsController < ApplicationController
   def create
     @event = SeasonTournament.new(event_params)
     @event.society = Society.last
+    @event.event_level = @event.tournament.tournament_level.name.downcase
     @event.season_order = SeasonTournament.where(season_id: @event.season_id).where("start_date < ?", @event.start_date).count + 1
     if @event.save
       flash[:success] = "Event added!"

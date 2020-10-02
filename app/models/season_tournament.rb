@@ -20,6 +20,17 @@ class SeasonTournament < ApplicationRecord
     course.name
   end
   
+  def type_stub
+    if event_level
+      event_level[0].upcase
+    end
+  end
+  
+  def update_event_level
+    self.event_level = tournament.tournament_level.name.downcase
+    save
+  end
+  
   def display_winners
     if event_winners.count < 1
       "N/A"
@@ -97,7 +108,8 @@ class SeasonTournament < ApplicationRecord
       event.calculate_points
       event.save
       if event.finish == 1
-        event_winner = EventWinner.new(golfer: event.golfer, season_tournament: self, golfer_season: event.golfer_season)
+        event_winner = EventWinner.new(golfer: event.golfer, season_tournament: self, golfer_season: event.golfer_season,
+                                       event_level: event.event_level)
         event_winner.save
         event.golfer.update_victory_count
         winner_name = event.golfer.name
