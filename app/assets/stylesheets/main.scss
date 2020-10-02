@@ -203,8 +203,14 @@ body{
         background-color: $btga-blue;
         color: white;
         a{
-          display: block ;
+          display: block;
           color: white;
+          width: 100%;
+        }
+      }
+      td{
+        a{
+          display: block;
           width: 100%;
         }
       }

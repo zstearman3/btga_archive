@@ -49,7 +49,7 @@
         <% @seasons.all.each do |season| %>
           <tr>
             <td><%= i %></td>
-            <td><%= season.name %></td>
+            <td><%= link_to season.name, season.golfer %></td>
             <td><%= season.points %></td>
             <td><%= season.events %></td>
             <td><%= season.wins %></td>
