@@ -109,7 +109,7 @@ class SeasonTournament < ApplicationRecord
       event.save
       if event.finish == 1
         event_winner = EventWinner.new(golfer: event.golfer, season_tournament: self, golfer_season: event.golfer_season,
-                                       event_level: event.event_level)
+                                       event_level: self.event_level)
         event_winner.save
         event.golfer.update_victory_count
         winner_name = event.golfer.name
