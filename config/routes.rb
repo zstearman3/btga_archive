@@ -17,4 +17,5 @@ Rails.application.routes.draw do
   get 'finalize/:id' => 'season_tournaments#finalize', as: :finalize_event
   get 'unfinalize/:id' => 'season_tournaments#unfinalize', as: :unfinalize_event
   get 'select_default_course' => 'season_tournaments#select_default_course'
+  match 'active_headlines' => 'headlines#active_headlines', via: [:get, :post]
 end 

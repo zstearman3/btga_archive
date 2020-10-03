@@ -1,5 +1,10 @@
 class HeadlinesController < ApplicationController
   
+  def active_headlines
+    @active_stories = Headline.where("expiration_date > ?", Date.today).order(story_date: :desc)
+    render json: @active_stories.to_json.to_s.html_safe
+  end
+  
   def new
     @headline = Headline.new
   end

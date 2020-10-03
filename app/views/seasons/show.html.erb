@@ -66,24 +66,4 @@
   <%= link_to "Next Season", @next_season, class: "button next-button" if @next_season %>
 </div>
 
-<script>
-  let headlines = <%= @active_stories.to_json.to_s.html_safe %>;
-  let i = 1;
-  
-  function scrollText(headlines, i){
-    document.getElementById("headline-text").innerText = headlines[i]["story"]
-  };
-  
-  if (document.getElementById("headline-text")) {
-    setInterval( function() { 
-      scrollText(headlines, i);
-      if (i >= headlines.length - 1){
-        i=0;
-      } else {
-        i++;
-      }
-    }, 5000);
-  } else {
-    console.log("No headline available.")
-  }
-</script>
+<%= javascript_pack_tag 'headline', 'data-turbolinks-track': 'reload' %>
