@@ -41,6 +41,11 @@ class GolfersController < ApplicationController
     redirect_to roster_path
   end
   
+  def events
+    @golfer = Golfer.includes(:golfer_seasons).find(params[:golfer_id])
+    @events = @golfer.golfer_events.joins(:season_tournament).merge(SeasonTournament.order(start_date: :desc))
+  end
+  
   private
     def select_golfer
       begin

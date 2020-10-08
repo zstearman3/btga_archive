@@ -181,6 +181,12 @@ body{
   }
   .table-wrapper{
     overflow-x: scroll;
+    td{
+      .block-link{
+        display: block;
+        width: 100%;
+      }
+    }
     .index-table{
       table-layout: auto;
       width: 100%;
@@ -205,12 +211,6 @@ body{
         a{
           display: block;
           color: white;
-          width: 100%;
-        }
-      }
-      td{
-        .block-link{
-          display: block;
           width: 100%;
         }
       }

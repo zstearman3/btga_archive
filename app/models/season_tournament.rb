@@ -26,6 +26,10 @@ class SeasonTournament < ApplicationRecord
     end
   end
   
+  def tournament_name_with_year
+    "#{tournament_name} (#{season.year})"
+  end
+  
   def update_event_level
     self.event_level = tournament.tournament_level.name.downcase
     save

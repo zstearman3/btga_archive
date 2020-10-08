@@ -2,7 +2,9 @@ Rails.application.routes.draw do
   root 'seasons#show', id: Season.current_id
   resources :seasons
   resources :courses
-  resources :golfers
+  resources :golfers do
+    get 'events' => 'golfers#events'
+  end
   resources :headlines, only: [:new, :create, :destroy]
   resources :tournaments 
   resources :ryder_cup_sessions do
