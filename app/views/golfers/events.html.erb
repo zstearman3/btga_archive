@@ -2,7 +2,7 @@
 
 <div class="table-container">
   <div class="table-info">
-    <h3><%= @golfer.name %></h3>
+    <h3><%= @golfer.name %> Event History</h3>
   </div>
   <div class="table-wrapper">
     <table class="index-table">
@@ -32,4 +32,7 @@
       </tbody>
     </table>
   </div>
+</div>
+<div class="button-container">
+  <%= link_to "Back to Profile", @golfer, class: "button finalize-button" %>
 </div>
