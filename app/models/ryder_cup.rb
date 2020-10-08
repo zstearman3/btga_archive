@@ -2,7 +2,7 @@ class RyderCup < ApplicationRecord
   has_many :ryder_cup_sessions, dependent: :destroy
   belongs_to :team_europe, :class_name => :RyderCupTeam, :foreign_key => "team_europe_id"
   belongs_to :team_usa, :class_name => :RyderCupTeam, :foreign_key => "team_usa_id"
-  belongs_to :champion, :class_name => :RyderCupTeam, :foreign_key => "champion_id", optional: true
+  belongs_to :champion, :class_name => :RyderCupTeam, :foreign_key => "champion", optional: true
   belongs_to :season
   validates_uniqueness_of :season_id
   
