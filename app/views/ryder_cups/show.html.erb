@@ -1,6 +1,9 @@
 <% provide(:title, @ryder_cup.name) %>
 
 <h1 id="ryder-cup-banner"><%= @ryder_cup.name %></h1>
+<% if @champion %>
+  <h2 class="ryder-cup-champion"><%="#{@champion.name} has won the Ryder Cup!" %></h2>
+<% end %>
 <div class="ryder-cup-rosters">
   <div class="table-container" id="team-usa-roster">
     <div class="table-info">

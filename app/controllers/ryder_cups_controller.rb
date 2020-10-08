@@ -5,5 +5,6 @@ class RyderCupsController < ApplicationController
     @sessions = @ryder_cup.ryder_cup_sessions.order(:order)
     @team_europe = @ryder_cup.team_europe
     @team_usa = @ryder_cup.team_usa
+    @champion = @ryder_cup.champion
   end
 end
