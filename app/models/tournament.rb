@@ -17,7 +17,7 @@ class Tournament < ApplicationRecord
   
   def best_rounds
     record = []
-    low_score = golfer_rounds.order(score: :asc).first.score
+    low_score = golfer_rounds.order(score: :asc).first.score if golfer_rounds.count > 0
     rounds = golfer_rounds.where("score = ?", low_score)
     rounds.each do |round|
       new_round = {}
@@ -36,7 +36,7 @@ class Tournament < ApplicationRecord
   
   def best_tournaments
     record = []
-    low_score = golfer_events.order(score_to_par: :asc).first.score_to_par
+    low_score = golfer_events.order(score_to_par: :asc).first.score_to_par if golfer_events.count > 0
     tournaments = golfer_events.where("score_to_par = ?", low_score)
     tournaments.each do |tournament|
       new_tournament = {}

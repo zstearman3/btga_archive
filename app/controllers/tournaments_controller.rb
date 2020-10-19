@@ -5,10 +5,7 @@ class TournamentsController < ApplicationController
     @tournaments = Tournament.all.includes(:tournament_level).order(:name)
   end
   
-  def show
-    low_score = @tournament.golfer_rounds.order(score: :asc).first.score
-    @best_rounds = @tournament.golfer_rounds.where("score = ?", low_score)
-  end
+  def show; end
     
   def new
     @tournament = Tournament.new

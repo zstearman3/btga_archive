@@ -54,12 +54,12 @@ class SeasonTournament < ApplicationRecord
   end
   
   def winning_score
-    score = golfer_events.order(score: :asc).first.score
+    score = golfer_events.order(score: :asc).first.score if golfer_events.count > 0
     score ||= "N/A"
   end
   
   def winning_score_to_par
-    ScoreToPar.convert_score_to_par(winning_score, course.par * rounds)
+    ScoreToPar.convert_score_to_par(winning_score, course.par * rounds) if winning_score != "N/A"
   end
   
   def points_hash
