@@ -1,1 +1,86 @@
-<h1>Course Records Coming Soon!</h1>
+<% provide(:title, @course.name) %>
+
+<div class="show-profile">
+  <div class="show-headline">
+    <h1><%= @course.name %></h1>
+    <div class="golfer-info">
+      <div class="info-line">
+        <div class="info-item">
+          <p class="title">Par</p>
+          <p><%= @course.par %></p>
+        </div>
+        <div class="info-item">
+          <p class="title">Yardage</p>
+          <p><%= @course.yardage %></p>
+        </div>
+      </div>
+    </div>
+  </div>
+<div class="table-container">
+    <div class="table-info">
+      <h3>Course Records</h3>
+    </div>
+    <div class="table-wrapper">
+      <table class="index-table">
+        <thead>
+          <tr>
+            <th>Record</th>
+            <th>Golfer</th>
+            <th>Score</th>
+            <th>To Par</th>
+            <th>Event</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @course.best_rounds.each do |round| %>
+            <tr>
+              <td>Best Round</td>
+              <td><%= link_to round[:golfer], golfer_path(round[:golfer_id]) %></td>
+              <td><%= round[:score] %></td>
+              <td><%= round[:score_to_par] %></td>
+              <td><%= link_to round[:event], season_tournament_path(round[:event_id]) %></td>
+            </tr>
+          <% end %>
+          <% @course.best_tournaments.each do |tournament| %>
+            <tr>
+              <td>Best Tournament</td>
+              <td><%= link_to tournament[:golfer], golfer_path(tournament[:golfer_id]) %></td>
+              <td><%= tournament[:score] %></td>
+              <td><%= tournament[:score_to_par] %></td>
+              <td><%= link_to tournament[:event], season_tournament_path(tournament[:event_id]) %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="table-container">
+    <div class="table-info">
+      <h3>Tournament Winners</h3>
+    </div>
+    <div class="table-wrapper">
+      <table class="index-table">
+        <thead>
+          <tr>
+            <th>Event</th>
+            <th>Winner</th>
+            <th>Total</th>
+            <th>Strokes</th>
+            <th>Course</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @course.winners.each do |winner| %>
+            <tr>
+              <td><%= link_to winner[:event], season_tournament_path(winner[:id]) %></td>
+              <td><%= winner[:winners] %></td>
+              <td><%= winner[:score_to_par] %></td>
+              <td><%= winner[:score] %></td>
+              <td><%= link_to winner[:course], course_path(winner[:course_id]) %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
