@@ -5,7 +5,10 @@ class TournamentsController < ApplicationController
     @tournaments = Tournament.all.includes(:tournament_level).order(:name)
   end
   
-  def show; end
+  def show
+    low_score = @tournament.golfer_rounds.order(score: :asc).first.score
+    @best_rounds = @tournament.golfer_rounds.where("score = ?", low_score)
+  end
     
   def new
     @tournament = Tournament.new
@@ -40,7 +43,7 @@ class TournamentsController < ApplicationController
   private
     def select_tournament
       begin
-        @tournament = Tournament.find(params[:id])
+        @tournament = Tournament.includes(:golfer_rounds, :golfer_events).find(params[:id])
       rescue StandardError => e
         redirect_to tournaments_path
         flash[:danger] = e.message

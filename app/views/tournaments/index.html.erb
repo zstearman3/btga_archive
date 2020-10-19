@@ -18,7 +18,7 @@
       <tbody>
         <% @tournaments.all.each do |tournament| %>
           <tr>
-            <td><%= tournament.name %></td>
+            <td><%= link_to tournament.name, tournament %></td>
             <td><%= tournament.home_course %></td>
             <td><%= tournament.level %></td>
             <td><%= link_to 'Edit', edit_tournament_path(tournament) %> | 

@@ -1,0 +1,48 @@
+<% provide(:title, @tournament.name) %>
+
+<div class="show-profile">
+  <div class="show-headline">
+    <h1><%= @tournament.name %></h1>
+  </div>
+  <div class="table-container">
+    <div class="table-info">
+      <h3>Tourament Records</h3>
+    </div>
+    <div class="table-wrapper">
+      <table class="index-table">
+        <thead>
+          <tr>
+            <th>Record</th>
+            <th>Golfer</th>
+            <th>Score</th>
+            <th>To Par</th>
+            <th>Course</th>
+            <th>Event</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <% @tournament.best_rounds.each do |round| %>
+              <td>Best Round</td>
+              <td><%= link_to round[:golfer], golfer_path(round[:golfer_id]) %></td>
+              <td><%= round[:score] %></td>
+              <td><%= round[:score_to_par] %></td>
+              <td><%= link_to round[:course], course_path(round[:course_id]) %></td>
+              <td><%= link_to round[:event], season_tournament_path(round[:event_id]) %></td>
+            <% end %>
+          </tr>
+          <tr>
+            <% @tournament.best_tournaments.each do |tournament| %>
+              <td>Best Tournament</td>
+              <td><%= link_to tournament[:golfer], golfer_path(tournament[:golfer_id]) %></td>
+              <td><%= tournament[:score] %></td>
+              <td><%= tournament[:score_to_par] %></td>
+              <td><%= link_to tournament[:course], course_path(tournament[:course_id]) %></td>
+              <td><%= link_to tournament[:event], season_tournament_path(tournament[:event_id]) %></td>
+            <% end %>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

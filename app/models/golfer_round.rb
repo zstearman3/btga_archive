@@ -18,4 +18,10 @@ class GolferRound < ApplicationRecord
     self.round_order = i
     self.score_to_par = score - course.par
   end
+  
+  def score_to_par
+    to_par = score - course.par
+    to_par = "+ #{to_par}" if to_par > 0
+    to_par = 'E' if to_par == 0
+  end
 end

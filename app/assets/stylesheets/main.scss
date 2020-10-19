@@ -406,14 +406,14 @@ body{
   background: $btga-red;
 }
 
-// Golfer Profile
-.golfer-profile{
+// Main Show Pages
+.show-profile{
   max-width: 1000px;
   margin: 10px auto;
   background-color: $btga-blue;
   border-radius: 20px;
   border: 2px solid $btga-blue;
-  .golfer-headline{
+  .show-headline{
     border-radius: 18px 18px 0px 0px;
     background-color: $btga-blue;
     h1{
