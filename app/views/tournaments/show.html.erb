@@ -21,26 +21,26 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <% @tournament.best_rounds.each do |round| %>
+          <% @tournament.best_rounds.each do |round| %>
+            <tr>
               <td>Best Round</td>
               <td><%= link_to round[:golfer], golfer_path(round[:golfer_id]) %></td>
               <td><%= round[:score] %></td>
               <td><%= round[:score_to_par] %></td>
               <td><%= link_to round[:course], course_path(round[:course_id]) %></td>
               <td><%= link_to round[:event], season_tournament_path(round[:event_id]) %></td>
-            <% end %>
-          </tr>
-          <tr>
-            <% @tournament.best_tournaments.each do |tournament| %>
+            </tr>
+          <% end %>
+          <% @tournament.best_tournaments.each do |tournament| %>
+            <tr>
               <td>Best Tournament</td>
               <td><%= link_to tournament[:golfer], golfer_path(tournament[:golfer_id]) %></td>
               <td><%= tournament[:score] %></td>
               <td><%= tournament[:score_to_par] %></td>
               <td><%= link_to tournament[:course], course_path(tournament[:course_id]) %></td>
               <td><%= link_to tournament[:event], season_tournament_path(tournament[:event_id]) %></td>
-            <% end %>
-          </tr>
+            </tr>
+          <% end %>
         </tbody>
       </table>
     </div>

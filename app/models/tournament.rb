@@ -23,7 +23,7 @@ class Tournament < ApplicationRecord
       new_round = {}
       new_round[:golfer] = round.golfer.name
       new_round[:score] = low_score
-      new_round[:score_to_par] = round.score_to_par
+      new_round[:score_to_par] = round.display_score_to_par
       new_round[:event] = round.season_tournament.tournament_name_with_year
       new_round[:course] = round.course.name
       new_round[:golfer_id] = round.golfer.id
@@ -42,7 +42,7 @@ class Tournament < ApplicationRecord
       new_tournament = {}
       new_tournament[:golfer] = tournament.golfer.name
       new_tournament[:score] = tournament.score
-      new_tournament[:score_to_par] = low_score
+      new_tournament[:score_to_par] = tournament.display_score_to_par
       new_tournament[:event] = tournament.season_tournament.tournament_name_with_year
       new_tournament[:course] = tournament.course.name
       new_tournament[:golfer_id] = tournament.golfer.id

@@ -20,8 +20,16 @@ class GolferRound < ApplicationRecord
   end
   
   def score_to_par
-    to_par = score - course.par
-    to_par = "+ #{to_par}" if to_par > 0
-    to_par = 'E' if to_par == 0
+    score - course.par
+  end
+  
+  def display_score_to_par
+    if score_to_par > 0
+      "+ #{score_to_par}"
+    elsif score_to_par == 0
+      "E"
+    else
+      score_to_par.to_s
+    end
   end
 end
