@@ -53,4 +53,20 @@ class Tournament < ApplicationRecord
     record
   end
   
+  def winners
+    events = []
+    season_tournaments.order(start_date: :desc).each do |tournament|
+      event = {}
+      event[:id] = tournament.id
+      event[:year] = tournament.year
+      event[:winners] = tournament.display_winners
+      event[:score] = tournament.winning_score
+      event[:score_to_par] = tournament.winning_score_to_par
+      event[:course] = tournament.course_name
+      event[:course_id] = tournament.course.id
+      events << event
+    end
+    events
+  end
+  
 end

@@ -20,6 +20,10 @@ class SeasonTournament < ApplicationRecord
     course.name
   end
   
+  def year
+    season.year
+  end
+  
   def type_stub
     if event_level
       event_level[0].upcase
@@ -27,7 +31,7 @@ class SeasonTournament < ApplicationRecord
   end
   
   def tournament_name_with_year
-    "#{tournament_name} (#{season.year})"
+    "#{tournament_name} (#{year})"
   end
   
   def update_event_level
@@ -47,6 +51,15 @@ class SeasonTournament < ApplicationRecord
     else
       event_winners.first.golfer.name
     end
+  end
+  
+  def winning_score
+    score = golfer_events.order(score: :asc).first.score
+    score ||= "N/A"
+  end
+  
+  def winning_score_to_par
+    ScoreToPar.convert_score_to_par(winning_score, course.par * rounds)
   end
   
   def points_hash

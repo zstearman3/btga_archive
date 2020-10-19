@@ -45,4 +45,33 @@
       </table>
     </div>
   </div>
+  <div class="table-container">
+    <div class="table-info">
+      <h3>Tournament Winners</h3>
+    </div>
+    <div class="table-wrapper">
+      <table class="index-table">
+        <thead>
+          <tr>
+            <th>Year</th>
+            <th>Winner</th>
+            <th>Total</th>
+            <th>Strokes</th>
+            <th>Course</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @tournament.winners.each do |winner| %>
+            <tr>
+              <td><%= link_to winner[:year], season_tournament_path(winner[:id]) %></td>
+              <td><%= winner[:winners] %></td>
+              <td><%= winner[:score_to_par] %></td>
+              <td><%= winner[:score] %></td>
+              <td><%= link_to winner[:course], course_path(winner[:course_id]) %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
 </div>
