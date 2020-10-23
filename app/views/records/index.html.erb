@@ -3,6 +3,7 @@
 <table>
   <% @records.all.each do |record| %>
     <tr>
+      <td><%= record.name %></td>
       <td><%= record.golfer_name %></td>
       <td><%= record.value %></td>
       <td><%= record.event_name %></td>
