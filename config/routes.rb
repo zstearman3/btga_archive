@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   resources :season_tournaments, :path => "events" do
     resources :golfer_events
   end
+  get 'record_book' => 'records#index'
   get 'ryder_cup/:id' => 'ryder_cups#show', as: :ryder_cup
   get 'schedule/:id' => 'season_tournaments#schedule',  as: :schedule
   get 'roster' => 'golfers#index'

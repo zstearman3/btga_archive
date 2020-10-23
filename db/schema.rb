@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_02_173655) do
+ActiveRecord::Schema.define(version: 2020_10_23_202149) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -135,6 +135,22 @@ ActiveRecord::Schema.define(version: 2020_10_02_173655) do
     t.index ["society_id"], name: "index_headlines_on_society_id"
   end
 
+  create_table "records", force: :cascade do |t|
+    t.string "name"
+    t.decimal "value", precision: 7, scale: 2
+    t.date "date"
+    t.bigint "golfer_id"
+    t.bigint "golfer_event_id"
+    t.bigint "season_tournament_id"
+    t.bigint "society_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["golfer_event_id"], name: "index_records_on_golfer_event_id"
+    t.index ["golfer_id"], name: "index_records_on_golfer_id"
+    t.index ["season_tournament_id"], name: "index_records_on_season_tournament_id"
+    t.index ["society_id"], name: "index_records_on_society_id"
+  end
+
   create_table "ryder_cup_appearances", force: :cascade do |t|
     t.bigint "golfer_id"
     t.bigint "ryder_cup_team_id"
@@ -187,6 +203,7 @@ ActiveRecord::Schema.define(version: 2020_10_02_173655) do
     t.integer "team_europe_id"
     t.integer "team_usa_id"
     t.integer "champion"
+    t.string "name"
     t.index ["champion"], name: "index_ryder_cups_on_champion"
     t.index ["season_id"], name: "index_ryder_cups_on_season_id"
     t.index ["team_europe_id"], name: "index_ryder_cups_on_team_europe_id"

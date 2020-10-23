@@ -6,3 +6,8 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 Society.create(name: 'BTGA', abbreviation: 'BTGA')
+
+Record.create([
+  {id: 1, name: 'Best Round (Strokes)', society: Society.first},
+  {id: 2, name: 'Best Round (To Par)', society: Society.first}
+])

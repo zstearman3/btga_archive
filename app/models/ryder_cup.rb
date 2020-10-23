@@ -41,8 +41,12 @@ class RyderCup < ApplicationRecord
     RyderCupSession.create(ryder_cup_id: id, order: 5, scoring_type: "Singles")
   end
   
-  def name
-    "#{season.year} Ryder Cup"
+  def president_or_ryder
+    name ? name : "Ryder Cup"
+  end
+  
+  def display_name
+    "#{season.year} #{president_or_ryder}"
   end
   
   def europe_score
