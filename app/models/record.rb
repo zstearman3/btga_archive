@@ -12,7 +12,7 @@ class Record < ApplicationRecord
     def get_low_round
       r = Record.find(1)
       round = GolferRound.order(score: :asc, created_at: :asc).first
-      r.value = round.score
+      r.value = round.score.round(decimal_places)
       r.date = round.created_at
       r.golfer_event = round.golfer_event
       r.golfer = round.golfer
