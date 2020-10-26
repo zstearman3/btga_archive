@@ -215,6 +215,9 @@ body{
         }
       }
       .europe{
+        background-color: $btga-blue;
+      }
+      .usa{
         background-color: $btga-red;
       }
       th, td{
@@ -252,6 +255,15 @@ body{
   flex-wrap: wrap;
   justify-content: space-around;
   #team-usa-roster{
+    display: inline-block;
+    max-width: 460px;
+    min-width: 300px;
+    margin: 5px;
+    .table-info{
+
+    }
+  }
+  #team-europe-roster{
     border-color: $btga-blue;
     display: inline-block;
     max-width: 460px;
@@ -259,15 +271,6 @@ body{
     margin: 5px;
     .table-info{
       background-color: $btga-blue;
-    }
-  }
-  #team-europe-roster{
-    display: inline-block;
-    max-width: 460px;
-    min-width: 300px;
-    margin: 5px;
-    .table-info{
-
     }
   }
 }

@@ -34,9 +34,9 @@ class RyderCup < ApplicationRecord
   end
   
   def generate_sessions
-    RyderCupSession.create(ryder_cup_id: id, order: 1, scoring_type: "Fourball")
-    RyderCupSession.create(ryder_cup_id: id, order: 2, scoring_type: "Foursome")
-    RyderCupSession.create(ryder_cup_id: id, order: 3, scoring_type: "Fourball")
+    RyderCupSession.create(ryder_cup_id: id, order: 1, scoring_type: "Scramble")
+    RyderCupSession.create(ryder_cup_id: id, order: 2, scoring_type: "Fourball")
+    RyderCupSession.create(ryder_cup_id: id, order: 3, scoring_type: "Scramble")
     RyderCupSession.create(ryder_cup_id: id, order: 4, scoring_type: "Foursome")
     RyderCupSession.create(ryder_cup_id: id, order: 5, scoring_type: "Singles")
   end
