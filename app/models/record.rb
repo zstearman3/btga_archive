@@ -9,6 +9,7 @@ class Record < ApplicationRecord
     def generate_all_records
       self.generate_low_round
       self.generate_low_round_to_par
+      self.generate_low_two_round_event
     end
     
     def set_all_records(low_event_event, low_event_score, low_round_event, low_round_score)
@@ -26,6 +27,8 @@ class Record < ApplicationRecord
       r.golfer_event = round.golfer_event
       r.golfer = round.golfer
       r.season_tournament = round.season_tournament
+      r.decimal_places = 0
+      r.society = Society.first
       r.save
     end
     
@@ -37,7 +40,27 @@ class Record < ApplicationRecord
       r.golfer_event = round.golfer_event
       r.golfer = round.golfer
       r.season_tournament = round.season_tournament
+      r.decimal_places = 0
+      r.society = Society.first
       r.save
+    end
+    
+    def generate_low_two_round_event
+      r = Record.find_or_create_by(name: 'Best Two-Round Tourney (Score)')
+      event = GolferEvent.includes(:season_tournament).where(season_tournaments: {rounds: 2})
+        .order(score: :asc, created_at: :asc).first
+      r.value = event.score
+      r.date = event.created_at
+      r.golfer_event = event
+      r.golfer = event.golfer
+      r.season_tournament = event.season_tournament
+      r.decimal_places = 0
+      r.society = Society.first
+      r.save
+    end
+    
+    def generate_low_two_round_event_to_par
+      r = Record.find_or_create_by(name: 'Best Two-Round Tourney (To Par)')
     end
     
     def set_low_round(event, score)
@@ -73,4 +96,14 @@ class Record < ApplicationRecord
   def event_name
     season_tournament ? season_tournament.tournament_name_with_year : "N/A"
   end
+  
+  def rounded_value
+    if decimal_places == 0
+      value.round()
+    else
+      decimal_places ||= 2
+      value.round(decimal_places)
+    end
+  end
+  
 end
