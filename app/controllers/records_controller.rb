@@ -1,5 +1,5 @@
 class RecordsController < ApplicationController
   def index
-    @records = Record.all
+    @records = Record.all.order(name)
   end
 end
