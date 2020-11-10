@@ -1,12 +1,29 @@
 <% provide(:title, "Record Book") %>
 
-<table>
-  <% @records.all.each do |record| %>
-    <tr>
-      <td><%= record.name %></td>
-      <td><%= record.golfer_name %></td>
-      <td><%= record.value %></td>
-      <td><%= record.event_name %></td>
-    </tr>
-  <% end %>
-</table>
+<div class="table-container">
+  <div class="table-info">
+    <h3>Record Book</h3>
+  </div>
+  <div class="table-wrapper">
+    <table class="index-table">
+      <thead>
+        <tr>
+          <th>Record</th>
+          <th>Golfer</th>
+          <th>Value</th>
+          <th>Event</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @records.all.each do |record| %>
+          <tr>
+            <td><%= record.name %></td>
+            <td><%= link_to record.golfer_name, record.golfer %></td>
+            <td><%= record.value %></td>
+            <td><%= link_to record.event_name, record.season_tournament %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
