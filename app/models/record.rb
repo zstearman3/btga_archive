@@ -7,6 +7,7 @@ class Record < ApplicationRecord
   class << self
     
     def generate_all_records
+      self.delete_all
       self.generate_low_round
       self.generate_low_round_to_par
       self.generate_low_two_round_event
@@ -32,6 +33,7 @@ class Record < ApplicationRecord
       r.season_tournament = round.season_tournament
       r.decimal_places = 0
       r.society = Society.first
+      r.to_par = false
       r.save
     end
     
@@ -45,6 +47,7 @@ class Record < ApplicationRecord
       r.season_tournament = round.season_tournament
       r.decimal_places = 0
       r.society = Society.first
+      r.to_par = true
       r.save
     end
     
@@ -59,6 +62,7 @@ class Record < ApplicationRecord
       r.season_tournament = event.season_tournament
       r.decimal_places = 0
       r.society = Society.first
+      r.to_par = false
       r.save
     end
     
@@ -73,6 +77,7 @@ class Record < ApplicationRecord
       r.season_tournament = event.season_tournament
       r.decimal_places = 0
       r.society = Society.first
+      r.to_par = true
       r.save
     end
     
@@ -87,6 +92,7 @@ class Record < ApplicationRecord
       r.season_tournament = event.season_tournament
       r.decimal_places = 0
       r.society = Society.first
+      r.to_par = false
       r.save
     end
     
@@ -101,11 +107,8 @@ class Record < ApplicationRecord
       r.season_tournament = event.season_tournament
       r.decimal_places = 0
       r.society = Society.first
+      r.to_par = true
       r.save
-    end
-    
-    def generate_low_two_round_event_to_par
-      r = Record.find_or_create_by(name: 'Best Two-Round Tourney (To Par)')
     end
     
     def set_low_round(event, score)
@@ -148,6 +151,25 @@ class Record < ApplicationRecord
     else
       decimal_places ||= 2
       value.round(decimal_places)
+    end
+  end
+  
+  def display_to_par
+    value = self.rounded_value
+    if value < 0
+      value.to_s
+    elsif value > 0
+      "+" + value.to_s
+    else
+      "E"
+    end
+  end
+  
+  def display_value
+    if self.to_par
+      display_to_par
+    else
+      rounded_value
     end
   end
   

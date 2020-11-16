@@ -138,6 +138,7 @@ class SeasonTournament < ApplicationRecord
     season.golfer_seasons.each { |g| g.update_season }
     self.finalized = true
     self.save ? true : false
+    Record.generate_all_records
   end
   
   def unfinalize_event
