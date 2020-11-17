@@ -13,7 +13,7 @@
   
   <div class="field">
     <%= form.label :season %>
-    <%= form.collection_select :season_id, Season.where(society: Society.last).order(:year), 
+    <%= form.collection_select :season_id, Season.where(society: Society.first).order(:year), 
         :id, :year, {selected: @season_id}, {class: 'form-field', id: :event_season_id }
     %>
   </div>

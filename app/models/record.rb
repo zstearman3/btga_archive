@@ -14,13 +14,16 @@ class Record < ApplicationRecord
       self.generate_low_two_round_event_to_par
       self.generate_low_four_round_event
       self.generate_low_four_round_event_to_par
+      self.generate_low_scoring_average
     end
     
-    def set_all_records(low_event_event, low_event_score, low_round_event, low_round_score)
-      self.set_low_event(low_event_event, low_event_score)
-      self.set_low_event_to_par(low_event_event, low_event_score)
-      self.set_low_round(low_round_event, low_round_score)
-      self.set_low_round_to_par(low_round_event, low_round_score)
+    def set_all_records(event)
+      low_event = event.golfer_events.order(score: :asc).first
+      low_round = event.golfer_rounds.order(score: :asc).first
+      self.set_low_event(low_event)
+      self.set_low_event_to_par(low_event)
+      self.set_low_round(low_round)
+      self.set_low_round_to_par(low_round)
     end
     
     def generate_low_round
@@ -111,9 +114,20 @@ class Record < ApplicationRecord
       r.save
     end
     
-    def set_low_round(event, score)
+    def generate_low_scoring_average
+      r = Record.find_or_create_by(name: 'Lowest Scoring Average (Season)')
+      season = GolferSeason.includes(:golfer_rounds).sort_by {|season| season.golfer_rounds.average(:score)}.first
+      r.value = season.golfer_rounds.average(:score)
+      r.date = season.updated_at
+      r.golfer = season.golfer
+      r.decimal_places = 2
+      r.society = Society.first
+      r.save
+    end
+    
+    def set_low_round(round)
       r = Record.find_or_create_by(name: 'Best Round (Strokes)')
-      if score < r.value
+      if round.score < r.value
         r.value = score
         r.date = event.created_at
         r.golfer_event = event
@@ -123,9 +137,9 @@ class Record < ApplicationRecord
       end
     end
     
-    def set_low_round_to_par(event, score)
+    def set_low_round_to_par(round)
       r = Record.find_or_create_by(name: 'Best Round (To Par)')
-      if score < r.value
+      if round.score_to_par < r.value
         r.value = score
         r.date = event.created_at
         r.golfer_event = event
@@ -135,6 +149,41 @@ class Record < ApplicationRecord
       end
     end
     
+    def set_low_event(event)
+      r = nil
+      if event.season_tournament.rounds == 2
+        r = Record.find_or_create_by(name: 'Best Two-Round Tourney (Strokes)')
+      elsif event.season_tournament.round == 4
+        r = Record.find_or_create_by(name: 'Best Four-Round Tourney (Strokes)')
+      end
+      return if r == nil
+      if event.score < r.value
+        r.value = event.score
+        r.date = event.created_at
+        r.golfer_event = event
+        r.golfer = event.golfer
+        r.season_tournament = event.season_tournament
+        r.save
+      end
+    end
+      
+    def set_low_event_to_par(event)
+      r = nil
+      if event.season_tournament.rounds == 2
+        r = Record.find_or_create_by(name: 'Best Two-Round Tourney (To Par)')
+      elsif event.season_tournament.round == 4
+        r = Record.find_or_create_by(name: 'Best Four-Round Tourney (To Par)')
+      end
+      return if r == nil
+      if event.score_to_par < r.value
+        r.value = event.score_to_par
+        r.date = event.created_at
+        r.golfer_event = event
+        r.golfer = event.golfer
+        r.season_tournament = event.season_tournament
+        r.save
+      end 
+    end
   end
   
   def golfer_name
