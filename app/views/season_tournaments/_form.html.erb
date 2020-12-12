@@ -20,7 +20,7 @@
   
   <div class="field">
     <%= form.label :tournament %>
-    <%= form.collection_select :tournament_id, Tournament.all.order(:name), :id, :name, {}, {class: 'form-field', id: :event_tournament_id }%>
+    <%= form.collection_select :tournament_id, Tournament.all.order(:name), :id, :latest_name, {}, {class: 'form-field', id: :event_tournament_id }%>
   </div>
   
   <div class="field">

@@ -13,7 +13,7 @@ class SeasonTournament < ApplicationRecord
   validates_uniqueness_of :start_date, scope: %i[season_id]
   
   def tournament_name
-    tournament.name
+    tournament.current_name(year)
   end
   
   def course_name

@@ -15,6 +15,20 @@ class Tournament < ApplicationRecord
     tournament_level.name if tournament_level
   end
   
+  def latest_name
+    updated_name ? updated_name : name
+  end
+  
+  def current_name(year)
+    if updated_name.nil?
+      name
+    elsif year < name_updated_year
+      name
+    else
+      updated_name
+    end
+  end
+  
   def best_rounds
     record = []
     low_score = golfer_rounds.order(score: :asc).first.score if golfer_rounds.count > 0

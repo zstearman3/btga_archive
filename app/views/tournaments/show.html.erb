@@ -2,7 +2,7 @@
 
 <div class="show-profile">
   <div class="show-headline">
-    <h1><%= @tournament.name %></h1>
+    <h1><%= @tournament.current_name(Season.current_year) %></h1>
   </div>
   <div class="table-container">
     <div class="table-info">
