@@ -43,6 +43,11 @@
     <%= form.date_field :end_date, class: 'form-field', id: :event_end_date %>
   </div>
   
+  <div class="field">
+    <%= form.label :match_play %>
+    <%= form.check_box :match_play, class: 'form-field', id: :event_match_play %>
+  </div>
+  
   <div class="submit">
     <%= form.submit yield(:button_text), class: 'button submit-button' %>
   </div>

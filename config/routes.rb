@@ -16,6 +16,7 @@ Rails.application.routes.draw do
   get 'record_book' => 'records#index'
   get 'ryder_cup/:id' => 'ryder_cups#show', as: :ryder_cup
   get 'schedule/:id' => 'season_tournaments#schedule',  as: :schedule
+  get 'events/:id/show_matchups' => 'season_tournaments#match_play', as: :match_play
   get 'roster' => 'golfers#index'
   get 'finalize/:id' => 'season_tournaments#finalize', as: :finalize_event
   get 'unfinalize/:id' => 'season_tournaments#unfinalize', as: :unfinalize_event

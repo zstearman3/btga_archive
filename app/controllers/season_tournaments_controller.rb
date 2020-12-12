@@ -1,5 +1,5 @@
 class SeasonTournamentsController < ApplicationController
-  before_action :select_event, only: [:show, :edit, :update, :destroy, :finalize, :unfinalize]
+  before_action :select_event, only: [:show, :edit, :update, :destroy, :finalize, :unfinalize, :match_play]
   
   def index
     @events = SeasonTournament.all
@@ -51,6 +51,9 @@ class SeasonTournamentsController < ApplicationController
     @events = @season.season_tournaments
   end
   
+  def match_play
+  end
+  
   def finalize
     @event.finalize_event ? flash[:success] = "Event finalized!": flash[:warning] = "Event not finalized!"
     redirect_to @event
@@ -74,6 +77,6 @@ class SeasonTournamentsController < ApplicationController
     
     def event_params
       params.require(:season_tournament).permit(:season_order, :rounds, :start_date, :end_date, 
-                                        :course_id, :society_id, :tournament_id, :season_id)
+                                        :course_id, :society_id, :tournament_id, :season_id, :match_play)
     end
 end

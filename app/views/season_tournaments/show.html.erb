@@ -6,8 +6,10 @@
       <h3><%= link_to @event.tournament_name, @event.tournament %></h3>
       <p><%= "#{@event.course_name} • #{@event.start_date.strftime("%m/%d/%Y")}" %></p>
     </div>
-    <% if !@event.finalized %>
+    <% if !@event.match_play && !@event.finalized %>
       <%= link_to 'New Golfer', new_season_tournament_golfer_event_path(@event) %>
+    <% elsif @event.match_play %>
+      <%= link_to 'Show Matchups', match_play_path(@event) %>
     <% end %>
   </div>
   <div class="table-wrapper">
