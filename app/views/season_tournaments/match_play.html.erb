@@ -1,0 +1,10 @@
+<div class="table-container">
+  <div class="leaderboard-info">
+    <div class="event-info">
+      <h3><%= link_to @event.tournament_name, @event.tournament %></h3>
+      <p><%= "#{@event.course_name} • #{@event.start_date.strftime("%m/%d/%Y")}" %></p>
+    </div>
+    <%= link_to 'Generate Matchups', '#' %>
+  </div>
+</div>
+  
