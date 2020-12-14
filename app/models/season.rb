@@ -1,6 +1,6 @@
 class Season < ApplicationRecord
-  CURRENT_YEAR = 2022
-  CURRENT_ID = 3
+  CURRENT_YEAR = 2023
+  CURRENT_ID = 4
   
   extend FriendlyId
   belongs_to :society

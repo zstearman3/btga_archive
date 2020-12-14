@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_12_162636) do
+ActiveRecord::Schema.define(version: 2020_12_14_033504) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -135,6 +135,26 @@ ActiveRecord::Schema.define(version: 2020_12_12_162636) do
     t.index ["society_id"], name: "index_headlines_on_society_id"
   end
 
+  create_table "match_play_matchups", force: :cascade do |t|
+    t.integer "favorite_golfer_id"
+    t.integer "underdog_golfer_id"
+    t.integer "round"
+    t.integer "favorite_seed"
+    t.integer "underdog_seed"
+    t.integer "strokes_up"
+    t.integer "holes_to_play"
+    t.integer "winner_golfer_id"
+    t.bigint "season_tournament_id"
+    t.boolean "final"
+    t.integer "winner_place"
+    t.integer "loser_place"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "loser_golfer_id"
+    t.boolean "losers_bracket", default: false
+    t.index ["season_tournament_id"], name: "index_match_play_matchups_on_season_tournament_id"
+  end
+
   create_table "records", force: :cascade do |t|
     t.string "name"
     t.decimal "value", precision: 7, scale: 2
@@ -227,6 +247,7 @@ ActiveRecord::Schema.define(version: 2020_12_12_162636) do
     t.boolean "finalized", default: false
     t.string "event_level"
     t.boolean "match_play", default: false
+    t.integer "current_round", default: 0
     t.index ["course_id"], name: "index_season_tournaments_on_course_id"
     t.index ["season_id"], name: "index_season_tournaments_on_season_id"
     t.index ["society_id"], name: "index_season_tournaments_on_society_id"

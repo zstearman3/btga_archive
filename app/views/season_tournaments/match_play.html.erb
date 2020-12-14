@@ -1,10 +1,37 @@
+<% provide(:title, @event.tournament_name) %>
+
 <div class="table-container">
   <div class="leaderboard-info">
     <div class="event-info">
       <h3><%= link_to @event.tournament_name, @event.tournament %></h3>
       <p><%= "#{@event.course_name} • #{@event.start_date.strftime("%m/%d/%Y")}" %></p>
     </div>
-    <%= link_to 'Generate Matchups', '#' %>
+    <%= link_to 'Generate Matchups', generate_matchups_path(@event) %>
+  </div>
+  <div class="table-wrapper">
+    <h3 class="match-play-subhead">Round 1 Matchups</h3>
+    <table class="match-play-matchups leaderboard">
+      <thead>
+        <tr>
+          <th>Seed</th>
+          <th>Favorite</th>
+          <th>Seed</th>
+          <th>Underdog</th>
+          <th>Result</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @round_one_matchups.each do |matchup| %>
+          <tr>
+            <td><%= matchup.favorite_seed %></td>
+            <td><%= matchup.favorite_golfer.name %></td>
+            <td><%= matchup.underdog_seed %></td>
+            <td><%= matchup.underdog_golfer.name %></td>
+            <td><%= link_to matchup.result_string, edit_match_play_matchup_path(matchup) %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
   </div>
 </div>
   

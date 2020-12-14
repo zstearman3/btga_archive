@@ -8,6 +8,7 @@ class SeasonTournament < ApplicationRecord
   has_many :golfers, through: :event_winners
   has_many :golfer_events, dependent: :destroy
   has_many :golfer_rounds, dependent: :destroy
+  has_many :match_play_matchups, dependent: :destroy
   validates :season_order, numericality: { only_integer: true }
   validates_uniqueness_of :season_id, scope: %i[tournament_id]
   validates_uniqueness_of :start_date, scope: %i[season_id]
@@ -141,6 +142,27 @@ class SeasonTournament < ApplicationRecord
     Record.generate_all_records
   end
   
+  def generate_matchups
+    if !match_play || season.golfer_seasons.count < 8
+      return false
+    end
+    case current_round
+    when 0 || nil
+      if match_round_of_eight
+        self.current_round += 1
+        self.save
+      else return false
+      end
+    when 1
+      if match_semi_finals
+        self.current_round += 1
+        self.save
+      else return false
+      end
+    end
+    true
+  end
+  
   def unfinalize_event
     event_winners.destroy_all
     headlines.destroy_all
@@ -160,4 +182,45 @@ class SeasonTournament < ApplicationRecord
   def formatted_end_date
     end_date.strftime("%m/%d/%Y")
   end
+  
+  private
+  
+  def match_round_of_eight
+    golfers = season.golfer_seasons.order(rank: :asc).first(8)
+    4.times do |n|
+      matchup = MatchPlayMatchup.new()
+      matchup.favorite_golfer = golfers[n].golfer
+      matchup.underdog_golfer = golfers[7 - n].golfer
+      matchup.season_tournament_id = self.id
+      matchup.favorite_seed = n + 1
+      matchup.underdog_seed = 8 - n
+      matchup.round = current_round + 1
+      return false unless matchup.save
+    end
+  end
+  
+  def match_semi_finals
+    previous_matchups = self.match_play_matchups.where(round: 1).order(favorite_seed: :asc)
+    return false if previous_matchups.where(winner_golfer: nil).count > 0 
+    2.times do |n|
+      winner_matchup = MatchPlayMatchup.new()
+      winner_matchup.favorite_golfer = previous_matchups[n].winner_golfer
+      winner_matchup.underdog_golfer = previous_matchups[ 3 - n].winner_golfer
+      winner_matchup.season_tournament_id
+      winner_matchup.favorite_seed = previous_matchup[n].winner_seed
+      winner_matchup.underdog_seed = previous_matchup[3 - n].winner_seed
+      winner_matchup.round = current_round + 1
+      return false unless winner_matchup.save
+      loser_matchup = MatchPlayMatchup.new()
+      loser_matchup.favorite_golfer = previous_matchups[3 - n].loser_golfer
+      loser_matchup.underdog_golfer = previous_matchups[n].loser_golfer
+      loser_matchup.season_tournament_id
+      loser_matchup.favorite_seed = previous_matchup[3 - n].loser_seed
+      loser_matchup.underdog_seed = previous_matchup[n].loser_seed
+      loser_matchup.round = current_round + 1
+      loser_matchup.losers_bracket = true
+      return false unless loser_matchup.save
+    end
+  end
+  
 end
