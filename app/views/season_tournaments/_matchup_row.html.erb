@@ -1,0 +1,7 @@
+  <tr>
+    <td><%= matchup.favorite_seed %></td>
+    <td><%= matchup.favorite_golfer.name %></td>
+    <td><%= matchup.underdog_seed %></td>
+    <td><%= matchup.underdog_golfer.name %></td>
+    <td><%= link_to matchup.result_string, edit_match_play_matchup_path(matchup) %></td>
+  </tr>

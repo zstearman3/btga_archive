@@ -1,0 +1,41 @@
+<% provide(:title, 'Update Match Play') %>
+
+<div class="form-container">
+  <h1>Input Match Play Results</h1>
+  
+  <%= form_for(@match) do |form| %>
+  
+    <% if @match.errors.any? %>
+      <div id="error-explanations">
+        <%= pluralize(@match.errors.count, "error") %> prohibited this match rom being saved:
+        <ul>
+          <% @match.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+  
+    <div class="field">
+      <%= form.label "Winner" %>
+      <%= form.collection_select :winner_golfer_id, @match.golfers, :id, :name, {}, {class: 'form-field', id: :winner_golfer_id} %>
+    </div>
+    
+    <div class="field">
+      <%= form.label "Holes Up" %>
+      <%= form.number_field :strokes_up, min: 1, max: 18, class: 'form-field', id: :strokes_up %>
+    </div>
+    
+    <div class="field">
+      <%= form.label "Holes To Play" %>
+      <%= form.number_field :holes_to_play, min: 0, max: 18, class: 'form-field', id: :holes_to_play %>
+    </div>
+    
+    <div class="submit">
+      <%= form.submit 'Submit Match', class: 'button submit-button' %>
+    </div>
+  
+  <% end %>
+</div>
+
+

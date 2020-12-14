@@ -206,17 +206,17 @@ class SeasonTournament < ApplicationRecord
       winner_matchup = MatchPlayMatchup.new()
       winner_matchup.favorite_golfer = previous_matchups[n].winner_golfer
       winner_matchup.underdog_golfer = previous_matchups[ 3 - n].winner_golfer
-      winner_matchup.season_tournament_id
-      winner_matchup.favorite_seed = previous_matchup[n].winner_seed
-      winner_matchup.underdog_seed = previous_matchup[3 - n].winner_seed
+      winner_matchup.season_tournament_id = self.id
+      winner_matchup.favorite_seed = previous_matchups[n].winner_seed
+      winner_matchup.underdog_seed = previous_matchups[3 - n].winner_seed
       winner_matchup.round = current_round + 1
       return false unless winner_matchup.save
       loser_matchup = MatchPlayMatchup.new()
       loser_matchup.favorite_golfer = previous_matchups[3 - n].loser_golfer
       loser_matchup.underdog_golfer = previous_matchups[n].loser_golfer
-      loser_matchup.season_tournament_id
-      loser_matchup.favorite_seed = previous_matchup[3 - n].loser_seed
-      loser_matchup.underdog_seed = previous_matchup[n].loser_seed
+      loser_matchup.season_tournament_id = self.id
+      loser_matchup.favorite_seed = previous_matchups[3 - n].loser_seed
+      loser_matchup.underdog_seed = previous_matchups[n].loser_seed
       loser_matchup.round = current_round + 1
       loser_matchup.losers_bracket = true
       return false unless loser_matchup.save

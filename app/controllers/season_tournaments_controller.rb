@@ -52,7 +52,9 @@ class SeasonTournamentsController < ApplicationController
   end
   
   def match_play
-    @round_one_matchups = @event.match_play_matchups.where(round: 1)  
+    @round_one_matchups = @event.match_play_matchups.where(round: 1)
+    @round_two_winner_matchups = @event.match_play_matchups.where(round: 2, losers_bracket: false)
+    @round_two_losers_matchups = @event.match_play_matchups.where(round: 2, losers_bracket: true)
   end
   
   def generate_matchups

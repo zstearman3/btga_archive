@@ -22,13 +22,33 @@
       </thead>
       <tbody>
         <% @round_one_matchups.each do |matchup| %>
-          <tr>
-            <td><%= matchup.favorite_seed %></td>
-            <td><%= matchup.favorite_golfer.name %></td>
-            <td><%= matchup.underdog_seed %></td>
-            <td><%= matchup.underdog_golfer.name %></td>
-            <td><%= link_to matchup.result_string, edit_match_play_matchup_path(matchup) %></td>
-          </tr>
+          <%= render 'matchup_row', matchup: matchup %>
+        <% end %>
+      </tbody>
+    </table>
+    <h3 class="match-play-subhead">Round 2 Matchups</h3>
+    <table class="match-play-matchups leaderboard">
+      <thead>
+        <tr>
+          <th>Seed</th>
+          <th>Favorite</th>
+          <th>Seed</th>
+          <th>Underdog</th>
+          <th>Result</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th colspan=5 class="bracket-title">Winners Bracket</th>
+        </tr>
+        <% @round_two_winner_matchups.each do |matchup| %>
+          <%= render 'matchup_row', matchup: matchup %>
+        <% end %>
+        <tr>
+          <th colspan=5 class="bracket-title">Losers Bracket</th>
+        </tr>
+        <% @round_two_losers_matchups.each do |matchup| %>
+          <%= render 'matchup_row', matchup: matchup %>
         <% end %>
       </tbody>
     </table>

@@ -30,4 +30,7 @@ class MatchPlayMatchup < ApplicationRecord
     end
   end
   
+  def golfers
+    [favorite_golfer, underdog_golfer]
+  end
 end
