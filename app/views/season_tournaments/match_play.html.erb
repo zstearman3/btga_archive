@@ -6,20 +6,16 @@
       <h3><%= link_to @event.tournament_name, @event.tournament %></h3>
       <p><%= "#{@event.course_name} • #{@event.start_date.strftime("%m/%d/%Y")}" %></p>
     </div>
-    <%= link_to 'Generate Matchups', generate_matchups_path(@event) %>
+    <% if @event.current_round < 3 %>
+      <%= link_to 'Generate Matchups', generate_matchups_path(@event) %>
+    <% else %>
+      <%= link_to 'Finalize Event', finalize_match_play_path(@event) %>
+    <% end %>
   </div>
   <div class="table-wrapper">
     <h3 class="match-play-subhead">Round 1 Matchups</h3>
     <table class="match-play-matchups leaderboard">
-      <thead>
-        <tr>
-          <th>Seed</th>
-          <th>Favorite</th>
-          <th>Seed</th>
-          <th>Underdog</th>
-          <th>Result</th>
-        </tr>
-      </thead>
+      <%= render 'matchup_th' %>
       <tbody>
         <% @round_one_matchups.each do |matchup| %>
           <%= render 'matchup_row', matchup: matchup %>
@@ -28,15 +24,7 @@
     </table>
     <h3 class="match-play-subhead">Round 2 Matchups</h3>
     <table class="match-play-matchups leaderboard">
-      <thead>
-        <tr>
-          <th>Seed</th>
-          <th>Favorite</th>
-          <th>Seed</th>
-          <th>Underdog</th>
-          <th>Result</th>
-        </tr>
-      </thead>
+      <%= render 'matchup_th' %>
       <tbody>
         <tr>
           <th colspan=5 class="bracket-title">Winners Bracket</th>
@@ -50,6 +38,28 @@
         <% @round_two_losers_matchups.each do |matchup| %>
           <%= render 'matchup_row', matchup: matchup %>
         <% end %>
+      </tbody>
+    </table>
+    <h3 class="match-play-subhead">Finals</h3>
+    <table class="match-play-matchups leaderboard">
+      <%= render 'matchup_th' %>
+      <tbody>
+        <tr>
+          <th colspan=5 class="bracket-title">Finals</th>
+        </tr>
+        <%= render 'matchup_row', matchup: @championship if @championship %>
+        <tr>
+          <th colspan=5 class="bracket-title">3rd Place</th>
+        </tr>
+        <%= render 'matchup_row', matchup: @third_place  if @third_place %>
+        <tr>
+          <th colspan=5 class="bracket-title">5th Place</th>
+        </tr>
+        <%= render 'matchup_row', matchup: @fifth_place if @fifth_place %>
+        <tr>
+          <th colspan=5 class="bracket-title">7th Place</th>
+        </tr>
+        <%= render 'matchup_row', matchup: @seventh_place if @seventh_place %>
       </tbody>
     </table>
   </div>

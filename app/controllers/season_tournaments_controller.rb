@@ -1,5 +1,6 @@
 class SeasonTournamentsController < ApplicationController
-  before_action :select_event, only: [:show, :edit, :update, :destroy, :finalize, :unfinalize, :match_play, :generate_matchups]
+  before_action :select_event, only: [:show, :edit, :update, :destroy, :finalize, :unfinalize, 
+                                      :match_play, :generate_matchups, :finalize_match_play]
   
   def index
     @events = SeasonTournament.all
@@ -55,6 +56,10 @@ class SeasonTournamentsController < ApplicationController
     @round_one_matchups = @event.match_play_matchups.where(round: 1)
     @round_two_winner_matchups = @event.match_play_matchups.where(round: 2, losers_bracket: false)
     @round_two_losers_matchups = @event.match_play_matchups.where(round: 2, losers_bracket: true)
+    @championship = @event.match_play_matchups.find_by(winner_place: 1)
+    @third_place = @event.match_play_matchups.find_by(winner_place: 3)
+    @fifth_place = @event.match_play_matchups.find_by(winner_place: 5)
+    @seventh_place = @event.match_play_matchups.find_by(winner_place: 7)
   end
   
   def generate_matchups
@@ -63,6 +68,16 @@ class SeasonTournamentsController < ApplicationController
       redirect_to match_play_path(@event)
     else
       flash[:warning] = "Matchups could not be generated. Please make sure there are at least 8 eligible players!"
+      redirect_to match_play_path(@event)
+    end
+  end
+  
+  def finalize_match_play
+    if @event.finalize_match_play
+      flash[:success] = "Event Finalized!"
+      redirect_to @event
+    else
+      flash[:warning] = "Event could not be finalized!"
       redirect_to match_play_path(@event)
     end
   end

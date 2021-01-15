@@ -1,3 +1,4 @@
+require 'pry'
 class MatchPlayMatchupsController < ApplicationController
   def edit
     @match = MatchPlayMatchup.find(params[:id])

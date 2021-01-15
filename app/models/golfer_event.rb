@@ -23,7 +23,7 @@ class GolferEvent < ApplicationRecord
   end
   
   def calculate_points()
-    ties = calculate_ties
+    season_tournament.match_play ? ties = 0 : ties = calculate_ties
     if finish && season_tournament
       points = season_tournament.points_hash[finish.to_s]
       puts(points)

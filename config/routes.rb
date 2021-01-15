@@ -19,6 +19,7 @@ Rails.application.routes.draw do
   get 'schedule/:id' => 'season_tournaments#schedule',  as: :schedule
   get 'events/:id/show_matchups' => 'season_tournaments#match_play', as: :match_play
   get 'events/:id/generate_matchups' => 'season_tournaments#generate_matchups', as: :generate_matchups
+  get 'events/:id/finalize_match_play' => 'season_tournaments#finalize_match_play', as: :finalize_match_play
   get 'roster' => 'golfers#index'
   get 'finalize/:id' => 'season_tournaments#finalize', as: :finalize_event
   get 'unfinalize/:id' => 'season_tournaments#unfinalize', as: :unfinalize_event

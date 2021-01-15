@@ -64,7 +64,8 @@ class SeasonTournament < ApplicationRecord
   end
   
   def points_hash
-    if tournament.tournament_level_id == 1
+    case tournament.tournament_level_id
+    when 1
       {"1" => 500,
        "2" => 300,
        "3" => 190,
@@ -76,7 +77,7 @@ class SeasonTournament < ApplicationRecord
        "9" => 80,
        "10" => 75
       }
-    elsif tournament.tournament_level_id == 2
+    when 2
       {"1" => 550,
        "2" => 315,
        "3" => 200,
@@ -88,7 +89,7 @@ class SeasonTournament < ApplicationRecord
        "9" => 83,
        "10" => 78
       }
-    elsif tournament.tournament_level_id == 3
+    when 3
       {"1" => 600,
        "2" => 330,
        "3" => 210,
@@ -100,7 +101,7 @@ class SeasonTournament < ApplicationRecord
        "9" => 88,
        "10" => 82
       }
-    else
+    when 4
       {"1" => 2000,
        "2" => 1200,
        "3" => 760,
@@ -111,6 +112,18 @@ class SeasonTournament < ApplicationRecord
        "8" => 340,
        "9" => 320,
        "10" => 300
+      }
+    else
+      {"1" => 1000,
+       "2" => 6000,
+       "3" => 380,
+       "4" => 270,
+       "5" => 220,
+       "6" => 200,
+       "7" => 180,
+       "8" => 170,
+       "9" => 160,
+       "10" => 150
       }
     end
   end
@@ -159,8 +172,66 @@ class SeasonTournament < ApplicationRecord
         self.save
       else return false
       end
+    when 2
+      if match_finals
+        self.current_round += 1
+        self.save
+      else return false
+      end
     end
     true
+  end
+  
+  def finalize_match_play
+    winner_name = nil
+    winner_score = nil
+    championship = match_play_matchups.find_by(winner_place: 1)
+    third_place = match_play_matchups.find_by(winner_place: 3)
+    fifth_place = match_play_matchups.find_by(winner_place: 5)
+    seventh_place = match_play_matchups.find_by(winner_place: 7)
+    first_golfer_event = GolferEvent.new(golfer: championship.winner_golfer, finish: 1)
+    second_golfer_event = GolferEvent.new(golfer: championship.loser_golfer, finish: 2)
+    third_golfer_event = GolferEvent.new(golfer: third_place.winner_golfer, finish: 3)
+    fourth_golfer_event = GolferEvent.new(golfer: third_place.loser_golfer, finish: 4)
+    fifth_golfer_event = GolferEvent.new(golfer: fifth_place.winner_golfer, finish: 5)
+    sixth_golfer_event = GolferEvent.new(golfer: fifth_place.loser_golfer, finish: 6)
+    seventh_golfer_event = GolferEvent.new(golfer: seventh_place.winner_golfer, finish: 7)
+    eighth_golfer_event = GolferEvent.new(golfer: seventh_place.loser_golfer, finish: 8)
+    golfer_events = [
+      first_golfer_event,
+      second_golfer_event,
+      third_golfer_event,
+      fourth_golfer_event,
+      fifth_golfer_event,
+      sixth_golfer_event,
+      seventh_golfer_event,
+      eighth_golfer_event
+    ]
+    golfer_events.each do |event|
+      event.season_tournament = self
+      event.society = Society.last
+      event.golfer_season = GolferSeason.find_or_create_by(golfer: event.golfer, season: self.season)
+      event.tournament = self.tournament
+      event.course = self.course
+      event.completed = true
+      event.calculate_points
+      print event.inspect
+      event.save
+      if event.finish == 1
+        event_winner = EventWinner.new(golfer: event.golfer, season_tournament: self, golfer_season: event.golfer_season,
+                                       event_level: self.event_level)
+        event_winner.save
+        event.golfer.update_victory_count
+        winner_name = event.golfer.name
+        winner_score = event.display_score_to_par
+      end
+    end
+    headline = headlines.new()
+    headline.generate_event_winner_story(winner_name, tournament_name, winner_score)
+    season.golfer_seasons.each { |g| g.update_season }
+    self.finalized = true
+    self.save ? true : false
+    Record.generate_all_records
   end
   
   def unfinalize_event
@@ -197,6 +268,7 @@ class SeasonTournament < ApplicationRecord
       matchup.round = current_round + 1
       return false unless matchup.save
     end
+    true
   end
   
   def match_semi_finals
@@ -205,7 +277,7 @@ class SeasonTournament < ApplicationRecord
     2.times do |n|
       winner_matchup = MatchPlayMatchup.new()
       winner_matchup.favorite_golfer = previous_matchups[n].winner_golfer
-      winner_matchup.underdog_golfer = previous_matchups[ 3 - n].winner_golfer
+      winner_matchup.underdog_golfer = previous_matchups[3 - n].winner_golfer
       winner_matchup.season_tournament_id = self.id
       winner_matchup.favorite_seed = previous_matchups[n].winner_seed
       winner_matchup.underdog_seed = previous_matchups[3 - n].winner_seed
@@ -221,6 +293,52 @@ class SeasonTournament < ApplicationRecord
       loser_matchup.losers_bracket = true
       return false unless loser_matchup.save
     end
+    true
+  end
+  
+  def match_finals
+    previous_winners_bracket = self.match_play_matchups.where(round: 2, losers_bracket: false).order(favorite_seed: :asc)
+    previous_losers_bracket = self.match_play_matchups.where(round: 2, losers_bracket: true).order(favorite_seed: :asc)
+    # Make Championship Game
+    championship = MatchPlayMatchup.new(season_tournament_id: self.id, round: current_round + 1)
+    championship.favorite_golfer = previous_winners_bracket.first.winner_golfer
+    championship.underdog_golfer = previous_winners_bracket.last.winner_golfer
+    championship.favorite_seed = previous_winners_bracket.first.winner_seed
+    championship.underdog_seed = previous_winners_bracket.last.winner_seed
+    championship.winner_place = 1
+    championship.loser_place = 2
+    return false unless championship.save
+    
+    # Make 3rd Place Game
+    third_place = MatchPlayMatchup.new(season_tournament_id: self.id, round: current_round + 1)
+    third_place.favorite_golfer = previous_winners_bracket.first.loser_golfer
+    third_place.underdog_golfer = previous_winners_bracket.last.loser_golfer
+    third_place.favorite_seed = previous_winners_bracket.first.loser_seed
+    third_place.underdog_seed = previous_winners_bracket.last.loser_seed
+    third_place.winner_place = 3
+    third_place.loser_place = 4
+    return false unless third_place.save
+    
+    # Make 5th Place Game
+    fifth_place = MatchPlayMatchup.new(season_tournament_id: self.id, round: current_round + 1)
+    fifth_place.favorite_golfer = previous_losers_bracket.first.winner_golfer
+    fifth_place.underdog_golfer = previous_losers_bracket.last.winner_golfer
+    fifth_place.favorite_seed = previous_losers_bracket.first.winner_seed
+    fifth_place.underdog_seed = previous_losers_bracket.last.winner_seed
+    fifth_place.winner_place = 5
+    fifth_place.loser_place = 6
+    return false unless fifth_place.save
+    
+    # Make 7th Place Game
+    seventh_place = MatchPlayMatchup.new(season_tournament_id: self.id, round: current_round + 1)
+    seventh_place.favorite_golfer = previous_losers_bracket.first.loser_golfer
+    seventh_place.underdog_golfer = previous_losers_bracket.last.loser_golfer
+    seventh_place.favorite_seed = previous_losers_bracket.first.loser_seed
+    seventh_place.underdog_seed = previous_losers_bracket.last.loser_seed
+    seventh_place.winner_place = 7
+    seventh_place.loser_place = 8
+    return false unless seventh_place.save
+    true
   end
   
 end
