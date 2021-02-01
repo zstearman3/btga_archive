@@ -11,7 +11,7 @@ class GolferSeason < ApplicationRecord
   end
   
   def update_points
-    self.points = golfer_events.sum(:points)
+    pass
   end
   
   def update_events
@@ -28,7 +28,6 @@ class GolferSeason < ApplicationRecord
   
   def update_season
     golfer.update_victory_count
-    self.update_points
     self.update_events
     self.update_wins
     self.update_rank

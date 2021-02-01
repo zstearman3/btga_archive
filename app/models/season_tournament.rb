@@ -1,4 +1,5 @@
 class SeasonTournament < ApplicationRecord
+  include PointsCalculator
   belongs_to :society
   belongs_to :tournament
   belongs_to :season
@@ -150,6 +151,7 @@ class SeasonTournament < ApplicationRecord
     headline = headlines.new()
     headline.generate_event_winner_story(winner_name, tournament_name, winner_score)
     season.golfer_seasons.each { |g| g.update_season }
+    calculate_season_points season.year
     self.finalized = true
     self.save ? true : false
     Record.generate_all_records
@@ -237,11 +239,9 @@ class SeasonTournament < ApplicationRecord
   def unfinalize_event
     event_winners.destroy_all
     headlines.destroy_all
-    golfer_events.each do |event|
-      event.points = 0
-      event.save
-    end
+    golfer_events.each.update_all(points: 0)
     season.golfer_seasons.each { |g| g.update_season }
+    calculate_season_points season.year
     self.finalized = false
     self.save ? true : false
   end
