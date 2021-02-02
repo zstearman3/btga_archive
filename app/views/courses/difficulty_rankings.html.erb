@@ -1,0 +1,31 @@
+<% provide(:title, 'Course Difficulty') %>
+
+<div class="table-container">
+  <div class="table-info">
+    <h3>BTGA Course Difficulty</h3>
+  </div>
+  <div class="table-wrapper">
+    <table class="index-table">
+      <thead>
+        <tr>
+          <th>Course</th>
+          <th>Par</th>
+          <th>Yardage</th>
+          <th>Avg Score</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @courses.each do |course| %>
+          <% avg = course.average_score.to_f.round(1) %>
+          <% avg = avg < 0 ? avg.to_s : "+#{avg}" %>
+          <tr>
+            <td><%= link_to course.name, course_path(course.id) %></td>
+            <td><%= course.par %></td>
+            <td><%= course.yardage %></td>
+            <td><%= avg %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

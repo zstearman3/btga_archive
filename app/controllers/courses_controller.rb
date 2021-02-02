@@ -37,6 +37,15 @@ class CoursesController < ApplicationController
     redirect_to courses_path
   end
   
+  def difficulty_rankings
+    season_one_id = Season.all.order(year: :asc).first.id
+    @courses = Course.includes(golfer_rounds: [:golfer_season])
+                     .select("courses.*, avg(golfer_rounds.score_to_par) AS average_score")
+                     .where.not(golfer_seasons: {season_id: season_one_id})
+                     .group('courses.id, golfer_rounds.id, golfer_seasons.id')
+                     .order('avg(golfer_rounds.score_to_par) desc').to_a
+  end
+  
   private
   
     def select_course

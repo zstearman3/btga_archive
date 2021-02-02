@@ -15,6 +15,7 @@ Rails.application.routes.draw do
     resources :golfer_events
   end
   get 'record_book' => 'records#index'
+  get 'course_difficulty' => 'courses#difficulty_rankings'
   get 'ryder_cup/:id' => 'ryder_cups#show', as: :ryder_cup
   get 'schedule/:id' => 'season_tournaments#schedule',  as: :schedule
   get 'events/:id/show_matchups' => 'season_tournaments#match_play', as: :match_play

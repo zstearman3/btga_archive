@@ -1,4 +1,5 @@
 class GolferSeason < ApplicationRecord
+  include PointsCalculator
   belongs_to :society
   belongs_to :season
   belongs_to :golfer
@@ -11,7 +12,7 @@ class GolferSeason < ApplicationRecord
   end
   
   def update_points
-    pass
+    self.points = golfer_events.sum(:points)
   end
   
   def update_events
@@ -28,6 +29,7 @@ class GolferSeason < ApplicationRecord
   
   def update_season
     golfer.update_victory_count
+    self.update_points
     self.update_events
     self.update_wins
     self.update_rank
