@@ -41,9 +41,9 @@ class CoursesController < ApplicationController
     # season_one_id = Season.all.order(year: :asc).first.id
     @courses = Course.joins(golfer_rounds: [:golfer_season])
                      .select("courses.*, avg(golfer_rounds.score_to_par) AS average_score")
+                     .where.not(golfer_seasons: {season_id: season_one_id})
                      .group('courses.id')
                      .order('avg(golfer_rounds.score_to_par) desc').to_a
-                     # .where.not(golfer_seasons: {season_id: season_one_id})
   end
   
   private
