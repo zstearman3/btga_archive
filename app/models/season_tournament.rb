@@ -239,7 +239,7 @@ class SeasonTournament < ApplicationRecord
   def unfinalize_event
     event_winners.destroy_all
     headlines.destroy_all
-    # golfer_events.update_all(points: 0)
+    golfer_events.update_all(points: 0)
     season.golfer_seasons.each { |g| g.update_season }
     # calculate_season_points season.year
     self.finalized = false
