@@ -151,7 +151,7 @@ class SeasonTournament < ApplicationRecord
     headline = headlines.new()
     headline.generate_event_winner_story(winner_name, tournament_name, winner_score)
     season.golfer_seasons.each { |g| g.update_season }
-    # calculate_season_points season.year
+    calculate_season_points season.year
     self.finalized = true
     self.save ? true : false
     Record.generate_all_records
@@ -241,7 +241,7 @@ class SeasonTournament < ApplicationRecord
     headlines.destroy_all
     golfer_events.update_all(points: 0)
     season.golfer_seasons.each { |g| g.update_season }
-    # calculate_season_points season.year
+    calculate_season_points season.year
     self.finalized = false
     self.save ? true : false
   end
