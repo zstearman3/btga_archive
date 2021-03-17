@@ -116,7 +116,7 @@ class SeasonTournament < ApplicationRecord
       }
     else
       {"1" => 1000,
-       "2" => 6000,
+       "2" => 600,
        "3" => 380,
        "4" => 270,
        "5" => 220,

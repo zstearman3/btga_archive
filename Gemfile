@@ -15,7 +15,6 @@ gem 'friendly_id', '~> 5.4.0'
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'pry', '~> 0.13.1'
-  gem 'pry-remote'
 end
 
 group :development do
