@@ -153,8 +153,12 @@ class SeasonTournament < ApplicationRecord
     season.golfer_seasons.each { |g| g.update_season }
     calculate_season_points season.year
     self.finalized = true
-    self.save ? true : false
+    unless self.save
+      return false
+    end
+    calculate_season_points season.year
     Record.generate_all_records
+    true
   end
   
   def generate_matchups
