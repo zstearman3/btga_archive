@@ -1,4 +1,3 @@
-require 'pry'
 module PointsCalculator
   
   def calculate_season_points year
@@ -18,7 +17,6 @@ module PointsCalculator
   private
   
   def _calculate_points events, event_count
-    binding.pry
     events = events.sort_by{ |event| event.points }.reverse
     case event_count
     when 0..4
